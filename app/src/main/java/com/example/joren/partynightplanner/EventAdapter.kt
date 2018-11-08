@@ -1,5 +1,6 @@
 package com.example.joren.partynightplanner
 
+import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -7,14 +8,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 
-class EventAdapter (private val dataSet: Array<Event>, private val parentActivity: MainActivity) : RecyclerView.Adapter<EventAdapter.ViewHolder>(){
+class EventAdapter (private val dataSet: Array<Event>, private val parentActivity: FragmentActivity?) : RecyclerView.Adapter<EventAdapter.ViewHolder>(){
 
     private val onClickListener: View.OnClickListener
 
     init {
         onClickListener = View.OnClickListener { e ->
             val item = e.tag as Event
-            parentActivity.openDetailPanel(item)
+            if(parentActivity is MainActivity){
+                parentActivity.openDetailPanel(item)
+            }
         }
     }
 

@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 
@@ -21,16 +22,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction().replace(R.id.content, ContentMain.newInstance()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.loggedInFragment, LoggedInFragment()).commit()
         setSupportActionBar(toolbar)
     }
 
     override fun onStart(){
+        Log.i("MainActivity", "starting")
         super.onStart()
-
         layoutManager = LinearLayoutManager(this)
         eventRecycleView.layoutManager = layoutManager
-
-        toolbar.title = title
 
         adapter = EventAdapter(DummyData.getEvents(), this)
         eventRecycleView.adapter = adapter
@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume(){
         super.onResume()
+        Log.i("MainActivity", "resuming")
         layoutManager = LinearLayoutManager(this)
         eventRecycleView.layoutManager = layoutManager
 
@@ -47,8 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        eventRecycleView.layoutManager = null
-        eventRecycleView.adapter = null
+        Log.i("MainActivity", "stopping")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -69,12 +69,9 @@ class MainActivity : AppCompatActivity() {
 
     fun openDetailPanel(item: Event) {
         val fragment = EventDetailFragment.newInstance(item)
-        val oldFragment = supportFragmentManager.findFragmentById(R.id.content)
-        if(oldFragment != null){
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.content, fragment)
-                    .addToBackStack(null)
-                    .commit()
-        }
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.content, fragment)
+                .addToBackStack(null)
+                .commit()
     }
 }

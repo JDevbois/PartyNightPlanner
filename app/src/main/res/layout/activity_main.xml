@@ -20,15 +20,17 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/content_main" />
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:id="@+id/content" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_margin="@dimen/fab_margin"
         android:layout_height="wrap_content"
         android:layout_width="100dp"
-        app:layout_anchor="@+id/include"
+        app:layout_anchor="@+id/content"
         android:src="@drawable/baseline_search_black_18dp"
         app:layout_anchorGravity="right|bottom" />
 

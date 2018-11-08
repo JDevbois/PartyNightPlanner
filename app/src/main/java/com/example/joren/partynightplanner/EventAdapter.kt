@@ -14,7 +14,7 @@ class EventAdapter (private val dataSet: Array<Event>, private val parentActivit
     init {
         onClickListener = View.OnClickListener { e ->
             val item = e.tag as Event
-            //TODO
+            parentActivity.openDetailPanel(item)
         }
     }
 

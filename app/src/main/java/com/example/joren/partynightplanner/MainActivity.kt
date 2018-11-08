@@ -1,6 +1,8 @@
 package com.example.joren.partynightplanner
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -18,9 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.loggedInFragment, LoggedInFragment())
-                .commit()
+        supportFragmentManager.beginTransaction().replace(R.id.content, ContentMain.newInstance()).commit()
         setSupportActionBar(toolbar)
     }
 
@@ -35,6 +35,22 @@ class MainActivity : AppCompatActivity() {
         adapter = EventAdapter(DummyData.getEvents(), this)
         eventRecycleView.adapter = adapter
     }
+
+    override fun onResume(){
+        super.onResume()
+        layoutManager = LinearLayoutManager(this)
+        eventRecycleView.layoutManager = layoutManager
+
+        adapter = EventAdapter(DummyData.getEvents(), this)
+        eventRecycleView.adapter = adapter
+    }
+
+    override fun onStop() {
+        super.onStop()
+        eventRecycleView.layoutManager = null
+        eventRecycleView.adapter = null
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -48,6 +64,17 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun openDetailPanel(item: Event) {
+        val fragment = EventDetailFragment.newInstance(item)
+        val oldFragment = supportFragmentManager.findFragmentById(R.id.content)
+        if(oldFragment != null){
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.content, fragment)
+                    .addToBackStack(null)
+                    .commit()
         }
     }
 }

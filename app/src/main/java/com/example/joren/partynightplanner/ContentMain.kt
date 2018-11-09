@@ -24,16 +24,23 @@ class ContentMain : Fragment() {
     override fun onStart() {
         super.onStart()
         Log.i("ContentMain", "starting")
-        layoutManager = LinearLayoutManager(this.context)
-        eventRecycleView.layoutManager = layoutManager
 
+        layoutManager = LinearLayoutManager(this.context)
         adapter = EventAdapter(DummyData.getEvents(), this.activity)
+
+        if(this.activity is MainActivity){
+            (this.activity as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.loggedInFragment, LoggedInFragment.newInstance()).commit()
+        }
+        eventRecycleView.layoutManager = layoutManager
         eventRecycleView.adapter = adapter
     }
 
     override fun onStop() {
         super.onStop()
         Log.i("ContentMain", "stopping")
+
+        eventRecycleView.layoutManager = null
+        eventRecycleView.adapter = null
     }
 
     companion object {

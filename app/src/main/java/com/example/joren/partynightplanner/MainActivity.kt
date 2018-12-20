@@ -1,15 +1,13 @@
 package com.example.joren.partynightplanner
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-
+import com.example.joren.partynightplanner.util.DummyData
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -24,6 +22,14 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.content, ContentMain.newInstance()).commit()
         supportFragmentManager.beginTransaction().replace(R.id.loggedInFragment, LoggedInFragment()).commit()
         setSupportActionBar(toolbar)
+
+        fabSearch.setOnClickListener {
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content, ContentSearch.newInstance())
+                    .addToBackStack(null)
+                    .commit()
+        }
     }
 
     override fun onStart(){

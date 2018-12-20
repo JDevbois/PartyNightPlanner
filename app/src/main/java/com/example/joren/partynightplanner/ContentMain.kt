@@ -8,8 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.joren.partynightplanner.util.DummyData
 import kotlinx.android.synthetic.main.content_main.*
 
 class ContentMain : Fragment() {

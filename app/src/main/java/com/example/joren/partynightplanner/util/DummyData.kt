@@ -1,4 +1,6 @@
-package com.example.joren.partynightplanner
+package com.example.joren.partynightplanner.util
+
+import com.example.joren.partynightplanner.Event
 
 class DummyData {
     companion object {

@@ -22,7 +22,10 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.content, ContentMain.newInstance()).commit()
         supportFragmentManager.beginTransaction().replace(R.id.loggedInFragment, LoggedInFragment()).commit()
         setSupportActionBar(toolbar)
+        initFab()
+    }
 
+    private fun initFab(){
         fabSearch.setOnClickListener {
             supportFragmentManager
                     .beginTransaction()

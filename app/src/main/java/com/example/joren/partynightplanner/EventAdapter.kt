@@ -31,6 +31,7 @@ class EventAdapter (private val dataSet: Array<Event>, private val parentActivit
         val event = dataSet[position]
         holder.itemDesc.text = event.desc
         holder.itemTitle.text = event.title
+        //TODO: dynamic image
         holder.itemImage.setImageResource(R.drawable.baseline_search_black_18dp)
 
         with(holder.itemView){

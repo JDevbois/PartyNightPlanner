@@ -1,4 +1,4 @@
-package com.example.joren.partynightplanner
+package com.example.joren.partynightplanner.adapters
 
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.joren.partynightplanner.MainActivity
+import com.example.joren.partynightplanner.R
+import com.example.joren.partynightplanner.domain.Event
 
 class EventAdapter (private val dataSet: Array<Event>, private val parentActivity: FragmentActivity?) : RecyclerView.Adapter<EventAdapter.ViewHolder>(){
 

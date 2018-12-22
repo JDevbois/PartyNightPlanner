@@ -1,10 +1,11 @@
-package com.example.joren.partynightplanner
+package com.example.joren.partynightplanner.views
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.joren.partynightplanner.R
 
 class LoggedInFragment : Fragment() {
 
@@ -13,7 +14,7 @@ class LoggedInFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): LoggedInFragment{
+        fun newInstance(): LoggedInFragment {
             return LoggedInFragment()
         }
     }

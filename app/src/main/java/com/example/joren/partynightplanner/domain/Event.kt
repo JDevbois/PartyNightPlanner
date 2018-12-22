@@ -1,4 +1,4 @@
-package com.example.joren.partynightplanner
+package com.example.joren.partynightplanner.domain
 
 import java.io.Serializable
 

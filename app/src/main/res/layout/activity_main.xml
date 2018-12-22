@@ -26,13 +26,4 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/content" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_height="wrap_content"
-        android:layout_width="100dp"
-        android:id="@+id/fabSearch"
-        app:layout_anchor="@+id/content"
-        android:src="@drawable/baseline_search_black_18dp"
-        app:layout_anchorGravity="right|bottom" />
-
 </android.support.design.widget.CoordinatorLayout>

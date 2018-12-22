@@ -7,7 +7,10 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.example.joren.partynightplanner.util.DummyData
+import com.example.joren.partynightplanner.adapters.EventAdapter
+import com.example.joren.partynightplanner.domain.Event
+import com.example.joren.partynightplanner.persistence.EventRepo
+import com.example.joren.partynightplanner.views.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -22,42 +25,36 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.content, ContentMain.newInstance()).commit()
         supportFragmentManager.beginTransaction().replace(R.id.loggedInFragment, LoggedInFragment()).commit()
         setSupportActionBar(toolbar)
-        initFab()
-    }
-
-    private fun initFab(){
-        fabSearch.setOnClickListener {
-            supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.content, ContentSearch.newInstance())
-                    .addToBackStack(null)
-                    .commit()
-        }
     }
 
     override fun onStart(){
         Log.i("MainActivity", "starting")
+
         super.onStart()
         layoutManager = LinearLayoutManager(this)
         eventRecycleView.layoutManager = layoutManager
 
-        adapter = EventAdapter(DummyData.getEvents(), this)
+        adapter = EventAdapter(EventRepo.getAllEvents(), this)
         eventRecycleView.adapter = adapter
     }
 
     override fun onResume(){
-        super.onResume()
         Log.i("MainActivity", "resuming")
+
+        super.onResume()
         layoutManager = LinearLayoutManager(this)
         eventRecycleView.layoutManager = layoutManager
 
-        adapter = EventAdapter(DummyData.getEvents(), this)
+        adapter = EventAdapter(EventRepo.getAllEvents(), this)
         eventRecycleView.adapter = adapter
     }
 
     override fun onStop() {
-        super.onStop()
         Log.i("MainActivity", "stopping")
+        layoutManager = null
+        adapter = null
+
+        super.onStop()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -80,6 +77,22 @@ class MainActivity : AppCompatActivity() {
         val fragment = EventDetailFragment.newInstance(item)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, fragment)
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun openSearchResultPanel(option: Int){
+        val fragment = ContentSearchResult.newInstance(option)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.content, fragment)
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun openSearchPanel() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content, ContentSearch.newInstance())
                 .addToBackStack(null)
                 .commit()
     }

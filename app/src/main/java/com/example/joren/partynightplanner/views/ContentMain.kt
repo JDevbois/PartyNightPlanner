@@ -1,4 +1,4 @@
-package com.example.joren.partynightplanner
+package com.example.joren.partynightplanner.views
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,6 +8,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.joren.partynightplanner.adapters.EventAdapter
+import com.example.joren.partynightplanner.MainActivity
+import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.util.DummyData
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -20,6 +23,12 @@ class ContentMain : Fragment() {
         return inflater.inflate(R.layout.content_main, container, false)
     }
 
+    private fun initFab(){
+        fabSearch.setOnClickListener {
+            (activity as MainActivity).openSearchPanel()
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         Log.i("ContentMain", "starting")
@@ -30,6 +39,9 @@ class ContentMain : Fragment() {
         if(this.activity is MainActivity){
             (this.activity as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.loggedInFragment, LoggedInFragment.newInstance()).commit()
         }
+
+        initFab()
+
         eventRecycleView.layoutManager = layoutManager
         eventRecycleView.adapter = adapter
     }
@@ -43,7 +55,7 @@ class ContentMain : Fragment() {
     }
 
     companion object {
-        fun newInstance(): ContentMain{
+        fun newInstance(): ContentMain {
             return ContentMain()
         }
     }

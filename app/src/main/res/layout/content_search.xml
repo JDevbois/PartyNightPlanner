@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="bottom|start"
                 android:layout_marginTop="30dp"
-                android:text="Put your search terms in here..."
+                android:hint="Put your search terms in here..."
                 android:textSize="15sp" />
 
 

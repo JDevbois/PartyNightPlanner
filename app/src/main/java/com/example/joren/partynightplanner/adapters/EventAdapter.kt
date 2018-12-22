@@ -11,7 +11,7 @@ import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.domain.Event
 
-class EventAdapter (private val dataSet: Array<Event>, private val parentActivity: FragmentActivity?) : RecyclerView.Adapter<EventAdapter.ViewHolder>(){
+class EventAdapter (private val dataSet: List<Event>, private val parentActivity: FragmentActivity?) : RecyclerView.Adapter<EventAdapter.ViewHolder>(){
 
     private val onClickListener: View.OnClickListener
 

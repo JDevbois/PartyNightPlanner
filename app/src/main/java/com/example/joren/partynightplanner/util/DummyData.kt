@@ -4,7 +4,7 @@ import com.example.joren.partynightplanner.domain.Event
 
 class DummyData {
     companion object {
-        fun getEvents() : Array<Event>{
+        fun getEvents() : List<Event>{
             return arrayOf(
                     Event("ShotjesAvond", "22u - 23u", ""),
                     Event("Watercantus", "20u - 00u", ""),
@@ -12,7 +12,7 @@ class DummyData {
                     Event("All Star On Repeat", "8u - 20u", ""),
                     Event("All Star On Repeat", "8u - 20u", ""),
                     Event("All Star On Repeat", "8u - 20u", "")
-            )
+            ).toList()
         }
     }
 }

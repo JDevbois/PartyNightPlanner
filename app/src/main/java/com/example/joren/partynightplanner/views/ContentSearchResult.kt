@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.content_main.*
 class ContentSearchResult : Fragment(){
 
     private var option: Int = -1
+    private var query: String = ""
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<EventAdapter.ViewHolder>? = null
@@ -25,6 +26,9 @@ class ContentSearchResult : Fragment(){
             if (it.containsKey(ARG_OPTION)){
                 option = it.getInt(ARG_OPTION)
             }
+            if (it.containsKey(ARG_QUERY)){
+                query = it.getString(ARG_QUERY)
+            }
         }
     }
 
@@ -34,8 +38,7 @@ class ContentSearchResult : Fragment(){
         layoutManager = LinearLayoutManager(this.context)
         eventRecycleView.layoutManager = layoutManager
 
-        //TODO
-        adapter = EventAdapter(EventRepo.getFilteredEvents(option, ""), this.activity)
+        adapter = EventAdapter(EventRepo.getFilteredEvents(option, query), this.activity)
         eventRecycleView.adapter = adapter
     }
 
@@ -45,8 +48,7 @@ class ContentSearchResult : Fragment(){
         layoutManager = LinearLayoutManager(this.context)
         eventRecycleView.layoutManager = layoutManager
 
-        //TODO
-        adapter = EventAdapter(EventRepo.getFilteredEvents(option, ""), this.activity)
+        adapter = EventAdapter(EventRepo.getFilteredEvents(option, query), this.activity)
         eventRecycleView.adapter = adapter
     }
 
@@ -63,10 +65,12 @@ class ContentSearchResult : Fragment(){
 
     companion object {
         const val ARG_OPTION = "option_id"
+        const val ARG_QUERY = "query_id"
 
-        fun newInstance(option: Int): ContentSearchResult {
+        fun newInstance(option: Int, query: String): ContentSearchResult {
             val args = Bundle()
             args.putInt(ARG_OPTION, option)
+            args.putString(ARG_QUERY, query)
             val fragment = ContentSearchResult()
             fragment.arguments = args
 

@@ -81,8 +81,8 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
-    fun openSearchResultPanel(option: Int){
-        val fragment = ContentSearchResult.newInstance(option)
+    fun openSearchResultPanel(option: Int, query: String){
+        val fragment = ContentSearchResult.newInstance(option, query)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, fragment)
                 .addToBackStack(null)

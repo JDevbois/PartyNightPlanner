@@ -12,13 +12,17 @@ import java.util.*
 import android.app.DatePickerDialog
 import java.text.SimpleDateFormat
 import android.text.method.KeyListener
+import android.view.KeyEvent
 import com.example.joren.partynightplanner.persistence.EventRepo
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
+import android.view.KeyEvent.KEYCODE_ENTER
+import android.view.inputmethod.EditorInfo
 
 
 class ContentSearch : Fragment() {
     private var selectedOption: Int = -1
+    private var query: String = ""
 
     private val myCalendar = Calendar.getInstance()!!
     private val year : Int = myCalendar.get(Calendar.YEAR)
@@ -40,14 +44,21 @@ class ContentSearch : Fragment() {
 
         initOptions()
         setSearchOption(EventRepo.BY_NAME)
+
+        //TODO handle enter
         btnSearch.setOnClickListener {
-            if(this.activity is MainActivity) {
-                (this.activity as MainActivity).openSearchResultPanel(selectedOption)
-            }
+            search()
+        }
+
+        editTextSearch.setOnKeyListener { v, keyCode, event ->
+            if(keyCode == KeyEvent.KEYCODE_ENTER){
+                search()
+                false
+            } else
+                true
         }
 
         editTextSearch.setOnClickListener{
-            Log.i("ContentSearch", "editText has been clicked")
             var isDataSet = false
             if (selectedOption == EventRepo.BY_DATE){
                 val datePickerDialog = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -65,7 +76,6 @@ class ContentSearch : Fragment() {
         }
 
         editTextSearch.setOnFocusChangeListener { v, hasFocus ->
-            Log.i("ContentSearch", "editText has been focused")
             var isDataSet = false
             if (selectedOption == EventRepo.BY_DATE){
                 val datePickerDialog = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -80,6 +90,13 @@ class ContentSearch : Fragment() {
             if(isDataSet){
                 txtSearchTitle.requestFocus()
             }
+        }
+    }
+
+    fun search(){
+        query = editTextSearch.text.toString()
+        if(this.activity is MainActivity) {
+            (this.activity as MainActivity).openSearchResultPanel(selectedOption, query)
         }
     }
 
@@ -135,8 +152,6 @@ class ContentSearch : Fragment() {
                 optionOrganiser.setTextColor(Color.BLACK)
             }
         }
-        Log.i("ContentSearch", "is clickable: " + editTextSearch.isClickable.toString())
-        Log.i("ContentSearch", "is focusable: " + editTextSearch.isFocusable.toString())
     }
 
     private fun updateLabel() {

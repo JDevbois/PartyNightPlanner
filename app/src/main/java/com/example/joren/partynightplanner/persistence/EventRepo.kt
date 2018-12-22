@@ -6,24 +6,24 @@ import com.example.joren.partynightplanner.util.DummyData
 class EventRepo {
     companion object {
         //TODO
-        private fun getEventsByName(query: String): Array<Event>{
+        private fun getEventsByName(query: String): List<Event>{
+            return DummyData.getEvents().filter { e -> e.title.contains(query) }
+        }
+
+        //TODO
+        private fun getEventsByOrganiser(query: String): List<Event>{
             return DummyData.getEvents()
         }
 
         //TODO
-        private fun getEventsByOrganiser(query: String): Array<Event>{
+        private fun getEventsByDate(query: String): List<Event>{
+            return DummyData.getEvents()
+        }
+        fun getAllEvents(): List<Event> {
             return DummyData.getEvents()
         }
 
-        //TODO
-        private fun getEventsByDate(query: String): Array<Event>{
-            return DummyData.getEvents()
-        }
-        fun getAllEvents(): Array<Event> {
-            return DummyData.getEvents()
-        }
-
-        fun getFilteredEvents(option: Int, query: String): Array<Event> {
+        fun getFilteredEvents(option: Int, query: String): List<Event> {
             return when(option){
                 BY_NAME -> {
                     getEventsByName(query)

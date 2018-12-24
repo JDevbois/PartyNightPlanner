@@ -2,10 +2,11 @@ package com.example.joren.partynightplanner.persistence
 
 import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.util.DummyData
+import java.text.SimpleDateFormat
+import java.util.*
 
 class EventRepo {
     companion object {
-        //TODO
         private fun getEventsByName(query: String): List<Event>{
             return DummyData.getEvents().filter { e -> e.title.contains(query) }
         }
@@ -15,9 +16,8 @@ class EventRepo {
             return DummyData.getEvents()
         }
 
-        //TODO
         private fun getEventsByDate(query: String): List<Event>{
-            return DummyData.getEvents()
+            return DummyData.getEvents().filter { e -> SimpleDateFormat("MM/dd/yy", Locale.US).format(e.date) == query }
         }
         fun getAllEvents(): List<Event> {
             return DummyData.getEvents()

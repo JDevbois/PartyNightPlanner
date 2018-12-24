@@ -36,10 +36,6 @@ class ContentSearch : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        if(this.activity is MainActivity){
-            (this.activity as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.loggedInFragment, LoggedInFragment.newInstance()).commit()
-        }
-
         editTextSearch.tag = editTextSearch.keyListener
 
         initOptions()
@@ -155,8 +151,7 @@ class ContentSearch : Fragment() {
     }
 
     private fun updateLabel() {
-        val myFormat = "MM/dd/yy"
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        val sdf = SimpleDateFormat("MM/dd/yy", Locale.US)
 
         editTextSearch.setText(sdf.format(myCalendar.time))
     }

@@ -6,28 +6,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#3B5998"
     android:orientation="horizontal">
-    <ImageView
+    <com.facebook.login.widget.ProfilePictureView
+        android:id="@+id/imgProfile"
         android:layout_width="75dp"
-        android:layout_height="75dp"
-        tools:srcCompat="@tools:sample/avatars"/>
+        android:layout_height="75dp" />
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtPlannedNights"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:textAllCaps="true"
-            android:text="My planned nights"
+            android:text="@string/my_planned_nights"
             android:textSize="25sp"
             android:textAlignment="center"
             android:textColor="@android:color/white"/>
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:textColor="@android:color/white"
-            android:textAlignment="textEnd"
-            android:text="log out"/>
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="end" />
     </android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.v7.widget.LinearLayoutCompat>

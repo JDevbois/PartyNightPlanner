@@ -36,10 +36,6 @@ class ContentMain : Fragment() {
         layoutManager = LinearLayoutManager(this.context)
         adapter = EventAdapter(DummyData.getEvents(), this.activity)
 
-        if(this.activity is MainActivity){
-            (this.activity as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.loggedInFragment, LoggedInFragment.newInstance()).commit()
-        }
-
         initFab()
 
         eventRecycleView.layoutManager = layoutManager

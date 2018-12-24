@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Event
+import com.example.joren.partynightplanner.domain.Night
 import com.example.joren.partynightplanner.persistence.EventRepo
 import com.example.joren.partynightplanner.views.*
 import com.facebook.*
@@ -115,6 +116,30 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.content, ContentSearch.newInstance())
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun openPlannedNightsPanel(){
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content, ContentPlannedNights.newInstance())
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun openNightDetailPanel(item: Night) {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content, ContentNightDetail.newInstance(item))
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun openNewNightPanel() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content, ContentNewNight.newInstance())
                 .addToBackStack(null)
                 .commit()
     }

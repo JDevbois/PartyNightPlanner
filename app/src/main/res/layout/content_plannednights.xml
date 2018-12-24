@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v7.widget.AppCompatTextView
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nights Overview"
-        android:textSize="30sp"
-        android:textAlignment="center"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="10dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/PlannedNightsLinear">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nights Overview"
+            android:textSize="30sp"
+            android:textAlignment="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/nightRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/night_fragment">
 
-</LinearLayout>
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v7.widget.LinearLayoutCompat>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:id="@+id/fabAdd"
+        app:layout_anchor="@+id/PlannedNightsLinear"
+        android:src="@drawable/baseline_search_black_18dp"
+        app:layout_anchorGravity="right|bottom" />
+</android.support.design.widget.CoordinatorLayout>

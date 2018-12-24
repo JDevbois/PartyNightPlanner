@@ -6,4 +6,5 @@
     <string name="facebook_app_id">311862136089658</string>
     <string name="fb_login_protocol_scheme">fb311862136089658</string>
     <string name="my_planned_nights"><u>My planned nights</u></string>
+    <string name="night_image">Night Image</string>
 </resources>

@@ -10,7 +10,8 @@
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/mainlinear">
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_width="100dp"
         android:id="@+id/fabSearch"
-        app:layout_anchor="@+id/eventRecycleView"
+        app:layout_anchor="@+id/mainlinear"
         android:src="@drawable/baseline_search_black_18dp"
         app:layout_anchorGravity="right|bottom" />
 </android.support.design.widget.CoordinatorLayout>

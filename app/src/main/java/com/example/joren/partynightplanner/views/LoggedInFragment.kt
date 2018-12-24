@@ -83,8 +83,9 @@ class LoggedInFragment : Fragment() {
 
         // ONCLICK for plannednights label
         txtPlannedNights.setOnClickListener {
-            val wasShown = GetSocialUi.createInvitesView().show()
-            Log.i("GetSocial", "GetSocial Smart Invites UI was shown: $wasShown")
+            //val wasShown = GetSocialUi.createInvitesView().show()
+            //Log.i("GetSocial", "GetSocial Smart Invites UI was shown: $wasShown")
+            (activity as MainActivity).openPlannedNightsPanel()
         }
     }
 

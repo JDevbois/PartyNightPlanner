@@ -20,7 +20,7 @@ class DummyData {
         fun getNights(): List<Night> {
             //TODO
             return listOf(
-                    Night(getEvents(), Calendar.getInstance().time, listOf(0, 0))
+                    Night("", "", getEvents(), Calendar.getInstance().time, listOf(0, 0))
             )
         }
     }

@@ -16,9 +16,6 @@ import com.example.joren.partynightplanner.views.*
 import com.facebook.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import com.facebook.login.LoginManager
-import java.util.*
-import com.facebook.login.LoginResult
 import kotlinx.android.synthetic.main.logged_in_fragment.*
 import org.json.JSONObject
 
@@ -120,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
-    fun openPlannedNightsPanel(){
+    fun openPlannedNightsPanel() {
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.content, ContentPlannedNights.newInstance())

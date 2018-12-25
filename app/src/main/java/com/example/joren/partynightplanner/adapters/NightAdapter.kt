@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.domain.Night
@@ -31,6 +32,7 @@ class NightAdapter(private val dataSet: List<Night>, private val parentActivity:
         val night = dataSet[position]
 
         //TODO: init
+        holder.itemName.text = night.name
 
         with(holder.itemView){
             tag = night
@@ -41,6 +43,10 @@ class NightAdapter(private val dataSet: List<Night>, private val parentActivity:
     override fun getItemCount() = dataSet.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        var itemName: TextView = itemView.findViewById(R.id.nightName)
+        var itemDesc: TextView = itemView.findViewById(R.id.nightDesc)
+        var itemDate: TextView = itemView.findViewById(R.id.nightDate)
+        var itemFriends: TextView = itemView.findViewById(R.id.nightFriends)
 
         init{
             // itemImage = itemView.findViewById(R.id.eventImg)

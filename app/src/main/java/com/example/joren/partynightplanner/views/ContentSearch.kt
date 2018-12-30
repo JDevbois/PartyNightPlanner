@@ -41,7 +41,6 @@ class ContentSearch : Fragment() {
         initOptions()
         setSearchOption(EventRepo.BY_NAME)
 
-        //TODO handle enter
         btnSearch.setOnClickListener {
             search()
         }

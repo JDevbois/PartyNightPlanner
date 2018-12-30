@@ -19,16 +19,28 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-    <FrameLayout
+    <android.support.v4.widget.DrawerLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="56dp"
-        android:id="@+id/loggedInFragment"
-        />
-    <FrameLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_marginTop="131dp"
-        android:id="@+id/content" />
+        android:layout_marginTop="56dp"
+        android:id="@+id/drawer_layout">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:id="@+id/loggedInFragment"
+            />
+        <FrameLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginTop="75dp"
+            android:id="@+id/content" />
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:menu="@menu/drawer_view"
+            app:headerLayout="@layout/nav_header"/>
+    </android.support.v4.widget.DrawerLayout>
 
 </android.support.design.widget.CoordinatorLayout>

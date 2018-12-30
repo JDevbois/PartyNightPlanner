@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "942489551587",
+    "firebase_url": "https://party-night-planner.firebaseio.com",
+    "project_id": "party-night-planner",
+    "storage_bucket": "party-night-planner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942489551587:android:cbfc18b96fbe4dcc",
+        "android_client_info": {
+          "package_name": "com.example.joren.partynightplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "942489551587-1b2jegd790bgfveb98efbo4c0q3vf5kq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.joren.partynightplanner",
+            "certificate_hash": "dfa0d51b9c4ed5aeb52e8f2cb5c90f8c5bb21f25"
+          }
+        },
+        {
+          "client_id": "942489551587-qot9gudh2q4li28t7vs112l1bidcv7ib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKdjFg0MOVI2FMsuoy_A1zVm8KA27eSKA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "942489551587-qot9gudh2q4li28t7vs112l1bidcv7ib.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

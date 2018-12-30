@@ -26,8 +26,7 @@ class ContentPlannedNights: Fragment() {
     override fun onStart() {
         super.onStart()
         layoutManager = LinearLayoutManager(this.context)
-        //TODO get by userid
-        adapter = NightAdapter(NightRepo.getAllNights(), this.activity)
+        adapter = NightAdapter(NightRepo.getNightsByUser(-1), this.activity)
 
         initFab()
 

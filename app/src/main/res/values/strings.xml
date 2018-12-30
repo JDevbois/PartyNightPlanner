@@ -7,4 +7,6 @@
     <string name="fb_login_protocol_scheme">fb311862136089658</string>
     <string name="my_planned_nights"><u>My planned nights</u></string>
     <string name="night_image">Night Image</string>
+    <string name="what_are_you_calling_your_night">What are you calling your night...?</string>
+    <string name="please_enter_a_description_for_this_lovely_night_out">Please enter a description for this lovely night out...</string>
 </resources>

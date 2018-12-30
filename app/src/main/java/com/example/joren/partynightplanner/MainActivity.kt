@@ -1,10 +1,16 @@
 package com.example.joren.partynightplanner
 
 import android.content.Intent
+import android.nfc.Tag
 import android.os.Bundle
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -39,7 +45,39 @@ class MainActivity : AppCompatActivity() {
 
         loadFbData()
 
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        val actionbar: ActionBar? = supportActionBar
+        actionbar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
+        }
+
+        nav_view.setNavigationItemSelectedListener {
+
+            it.isChecked = true
+            drawer_layout.closeDrawers()
+
+            when (it.itemId){
+                R.id.nav_home -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.content, ContentMain.newInstance()).commit()
+                    true
+                }
+                R.id.nav_nights -> {
+                    openPlannedNightsPanel()
+                    true
+                }
+                R.id.nav_search -> {
+                    openSearchPanel()
+                    true
+                }
+                R.id.nav_invitations -> {
+                    true
+                }
+                else -> false
+            }
+        }
+
     }
 
     override fun onStart(){
@@ -72,6 +110,20 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                if(drawer_layout.isDrawerOpen(GravityCompat.START))
+                    drawer_layout.closeDrawers()
+                else
+                    drawer_layout.openDrawer(GravityCompat.START)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
@@ -83,17 +135,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    fun openDetailPanel(item: Event) {
+    fun openEventDetailPanel(item: Event) {
         val fragment = EventDetailFragment.newInstance(item)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, fragment)

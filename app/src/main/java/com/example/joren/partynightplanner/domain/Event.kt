@@ -11,5 +11,5 @@ class Event(
         var organiser: String
 ) : Serializable {
 
-    constructor(): this("", "", Calendar.getInstance().time, "", "")
+    constructor(): this("", "", Calendar.getInstance().time, "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", "")
 }

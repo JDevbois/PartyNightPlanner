@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.domain.Event
+import com.example.joren.partynightplanner.util.DownloadImageTask
 
 class EventAdapter (private val dataSet: List<Event>, private val parentActivity: FragmentActivity?) : RecyclerView.Adapter<EventAdapter.ViewHolder>(){
 
@@ -19,7 +20,7 @@ class EventAdapter (private val dataSet: List<Event>, private val parentActivity
         onClickListener = View.OnClickListener { e ->
             val item = e.tag as Event
             if(parentActivity is MainActivity){
-                parentActivity.openDetailPanel(item)
+                parentActivity.openEventDetailPanel(item)
             }
         }
     }
@@ -34,8 +35,7 @@ class EventAdapter (private val dataSet: List<Event>, private val parentActivity
         val event = dataSet[position]
         holder.itemDesc.text = event.desc
         holder.itemTitle.text = event.title
-        //TODO: dynamic image
-        holder.itemImage.setImageResource(R.drawable.baseline_search_black_18dp)
+        DownloadImageTask(holder.itemImage).execute(event.imgSrc)
 
         with(holder.itemView){
             tag = event

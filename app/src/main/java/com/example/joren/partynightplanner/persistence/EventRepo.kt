@@ -8,16 +8,15 @@ import java.util.*
 class EventRepo {
     companion object {
         private fun getEventsByName(query: String): List<Event>{
-            return DummyData.getEvents().filter { e -> e.title.contains(query) }
-        }
+            return getAllEvents().filter { e -> e.title.contains(query) }
+    }
 
-        //TODO
         private fun getEventsByOrganiser(query: String): List<Event>{
-            return DummyData.getEvents()
+            return getAllEvents().filter { e -> e.organiser.contains(query) }
         }
 
         private fun getEventsByDate(query: String): List<Event>{
-            return DummyData.getEvents().filter { e -> SimpleDateFormat("MM/dd/yy", Locale.US).format(e.date) == query }
+            return getAllEvents().filter { e -> SimpleDateFormat("MM/dd/yy", Locale.US).format(e.date) == query }
         }
         fun getAllEvents(): List<Event> {
             return DummyData.getEvents()
@@ -34,7 +33,7 @@ class EventRepo {
                 BY_DATE -> {
                     getEventsByDate(query)
                 }
-                else -> DummyData.getEvents()
+                else -> getAllEvents()
             }
         }
 

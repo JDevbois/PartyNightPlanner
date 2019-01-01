@@ -1,9 +1,8 @@
-package com.example.joren.partynightplanner.views
+package com.example.joren.partynightplanner.views.search
 
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +12,9 @@ import android.app.DatePickerDialog
 import java.text.SimpleDateFormat
 import android.text.method.KeyListener
 import android.view.KeyEvent
-import com.example.joren.partynightplanner.persistence.EventRepo
+import com.example.joren.partynightplanner.persistence.events.EventRepo
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
-import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.inputmethod.EditorInfo
 
 
 class ContentSearch : Fragment() {

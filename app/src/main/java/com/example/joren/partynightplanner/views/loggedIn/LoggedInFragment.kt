@@ -1,4 +1,4 @@
-package com.example.joren.partynightplanner.views
+package com.example.joren.partynightplanner.views.loggedIn
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.logged_in_fragment.*
 import java.util.*
 import com.example.joren.partynightplanner.MainActivity
 import com.facebook.*
-import im.getsocial.sdk.ui.GetSocialUi
 
 
 class LoggedInFragment : Fragment() {

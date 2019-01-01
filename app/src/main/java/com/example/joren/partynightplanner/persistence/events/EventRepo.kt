@@ -1,27 +1,33 @@
-package com.example.joren.partynightplanner.persistence
+package com.example.joren.partynightplanner.persistence.events
 
 import com.example.joren.partynightplanner.domain.Event
+import com.example.joren.partynightplanner.domain.Night
 import com.example.joren.partynightplanner.util.DummyData
 import java.text.SimpleDateFormat
 import java.util.*
 
 class EventRepo {
     companion object {
+
+        //TODO move to view model and filter livedata
         private fun getEventsByName(query: String): List<Event>{
             return getAllEvents().filter { e -> e.title.contains(query) }
-    }
+        }
 
+        //TODO move to view model and filter livedata
         private fun getEventsByOrganiser(query: String): List<Event>{
             return getAllEvents().filter { e -> e.organiser.contains(query) }
         }
 
+        //TODO move to view model and filter livedata
         private fun getEventsByDate(query: String): List<Event>{
             return getAllEvents().filter { e -> SimpleDateFormat("MM/dd/yy", Locale.US).format(e.date) == query }
         }
         fun getAllEvents(): List<Event> {
-            return DummyData.getEvents()
+            return DummyData.events
         }
 
+        //TODO move to view model and filter livedata
         fun getFilteredEvents(option: Int, query: String): List<Event> {
             return when(option){
                 BY_NAME -> {
@@ -35,6 +41,11 @@ class EventRepo {
                 }
                 else -> getAllEvents()
             }
+        }
+
+        fun getEventsForNight(night: Night): List<Event> {
+            //TODO
+            return listOf()
         }
 
         const val BY_DATE = 0

@@ -1,4 +1,4 @@
-package com.example.joren.partynightplanner.views
+package com.example.joren.partynightplanner.views.details
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.domain.Event
 import kotlinx.android.synthetic.main.event_detail.view.*
-import java.net.URL
-import android.graphics.drawable.Drawable
 import com.example.joren.partynightplanner.util.DownloadImageTask
-import java.io.InputStream
 
 
 class EventDetailFragment : Fragment() {
@@ -36,6 +33,7 @@ class EventDetailFragment : Fragment() {
 
             DownloadImageTask(rootView.eventDetailImg).execute(event.imgSrc)
         }
+
         return rootView
     }
 

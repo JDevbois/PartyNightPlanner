@@ -31,11 +31,12 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="Title: " />
+                    android:text="Name: " />
                 <EditText
                     android:hint="@string/what_are_you_calling_your_night"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editAddName"/>
             </android.support.v7.widget.LinearLayoutCompat>
             <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
@@ -47,26 +48,41 @@
                 <EditText
                     android:hint="@string/please_enter_a_description_for_this_lovely_night_out"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editAddDesc"/>
             </android.support.v7.widget.LinearLayoutCompat>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Start Date and Time" />
+                android:text="Select Start Date and Time"
+                android:id="@+id/btnSelectDateTime"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"/>
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:id="@+id/txtDateAdd"
                 android:text="22 December 23:00:00 UTC+1"/>
 
         </android.support.v7.widget.LinearLayoutCompat>
 
-        <android.support.v7.widget.AppCompatTextView
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Events"
-            android:textSize="20sp"
-            android:textAlignment="center"/>
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:text="Events"
+                android:textSize="20sp"
+                android:layout_gravity="center_vertical"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_library_add_black_18dp"
+                android:text="Add event" />
+        </android.support.v7.widget.LinearLayoutCompat>
         <View
             android:layout_width="match_parent"
             android:layout_marginHorizontal="10dp"
@@ -77,18 +93,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/event_fragment"
-            android:id="@+id/eventRecycleView">
+            android:id="@+id/newNightEventRecycleView">
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v7.widget.LinearLayoutCompat>
 
+    <!--todo: save icon-->
     <android.support.design.widget.FloatingActionButton
         android:layout_margin="@dimen/fab_margin"
         android:layout_height="wrap_content"
         android:layout_width="100dp"
-        android:id="@+id/fabAdd"
+        android:id="@+id/fabSaveNight"
         app:layout_anchor="@id/AddNightLinear"
-        android:src="@drawable/baseline_library_add_black_18dp"
+        android:src="@drawable/ic_save_black_24dp"
         app:layout_anchorGravity="right|bottom" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.example.joren.partynightplanner.views
+package com.example.joren.partynightplanner.views.plannedNights
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,8 +10,7 @@ import android.view.ViewGroup
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.adapters.NightAdapter
-import com.example.joren.partynightplanner.persistence.NightRepo
-import com.facebook.AccessToken
+import com.example.joren.partynightplanner.persistence.nights.NightRepo
 import kotlinx.android.synthetic.main.content_plannednights.*
 
 class ContentPlannedNights: Fragment() {
@@ -26,7 +25,8 @@ class ContentPlannedNights: Fragment() {
     override fun onStart() {
         super.onStart()
         layoutManager = LinearLayoutManager(this.context)
-        adapter = NightAdapter(NightRepo.getNightsByUser(-1), this.activity)
+        //TODO
+        adapter = NightAdapter(NightRepo.getNightsByUser(""), activity)
 
         initFab()
 
@@ -47,7 +47,7 @@ class ContentPlannedNights: Fragment() {
     }
 
     companion object {
-        fun newInstance(): ContentPlannedNights{
+        fun newInstance(): ContentPlannedNights {
             return ContentPlannedNights()
         }
     }

@@ -1,11 +1,8 @@
 package com.example.joren.partynightplanner
 
 import android.content.Intent
-import android.nfc.Tag
 import android.os.Bundle
-import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -17,8 +14,16 @@ import android.view.MenuItem
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.domain.Night
-import com.example.joren.partynightplanner.persistence.EventRepo
+import com.example.joren.partynightplanner.persistence.events.EventRepo
+import com.example.joren.partynightplanner.persistence.nights.NightRepo
 import com.example.joren.partynightplanner.views.*
+import com.example.joren.partynightplanner.views.details.ContentNightDetail
+import com.example.joren.partynightplanner.views.details.EventDetailFragment
+import com.example.joren.partynightplanner.views.loggedIn.LoggedInFragment
+import com.example.joren.partynightplanner.views.newNight.ContentNewNight
+import com.example.joren.partynightplanner.views.plannedNights.ContentPlannedNights
+import com.example.joren.partynightplanner.views.search.ContentSearch
+import com.example.joren.partynightplanner.views.search.ContentSearchResult
 import com.facebook.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -211,5 +216,10 @@ class MainActivity : AppCompatActivity() {
 
     fun handleSignInResultFacebook(data: JSONObject?) {
         imgProfile.profileId = data!!["id"].toString()
+    }
+
+    fun saveNight(night: Night) {
+        NightRepo.addNight(night)
+        openPlannedNightsPanel()
     }
 }

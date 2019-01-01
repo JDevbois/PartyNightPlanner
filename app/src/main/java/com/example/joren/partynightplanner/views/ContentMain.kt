@@ -11,8 +11,7 @@ import android.view.ViewGroup
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
-import com.example.joren.partynightplanner.persistence.EventRepo
-import com.example.joren.partynightplanner.util.DummyData
+import com.example.joren.partynightplanner.persistence.events.EventRepo
 import kotlinx.android.synthetic.main.content_main.*
 
 class ContentMain : Fragment() {

@@ -8,4 +8,6 @@ class Night(var name: String, var desc: String, var events: List<Event>, var dat
     fun friendsToString(): String {
         return this.friends.joinToString(separator = ", ")
     }
+
+    constructor(): this("", "", mutableListOf(), Calendar.getInstance().time, mutableListOf())
 }

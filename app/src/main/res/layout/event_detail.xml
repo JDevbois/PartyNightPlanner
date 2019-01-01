@@ -25,6 +25,11 @@
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/eventDetailDateAndTime"
+        android:text="@string/from_20_00_to_22_00"/>
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="eventDesc"
         android:id="@+id/eventDetailDesc" />
 </LinearLayout>

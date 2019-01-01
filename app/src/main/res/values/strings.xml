@@ -9,4 +9,7 @@
     <string name="night_image">Night Image</string>
     <string name="what_are_you_calling_your_night">What are you calling your night...?</string>
     <string name="please_enter_a_description_for_this_lovely_night_out">Please enter a description for this lovely night out...</string>
+    <string name="from_20_00_to_22_00">From 20:00 to 22:00</string>
+    <string name="invite_friends">Invite friends</string>
+    <string name="loremipsum">lorem ipsum dolor sit amet</string>
 </resources>

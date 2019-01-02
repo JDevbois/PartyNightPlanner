@@ -13,7 +13,6 @@ import android.widget.Toast
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.adapters.EventAdapter
-import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.domain.Night
 import com.example.joren.partynightplanner.persistence.events.EventRepo
 import kotlinx.android.synthetic.main.content_new_night.*
@@ -43,7 +42,7 @@ class ContentNewNight: Fragment() {
         super.onStart()
         initUi()
         layoutManager = LinearLayoutManager(this.context)
-        adapter = EventAdapter(EventRepo.getEventsForNight(night), this.activity)
+        adapter = EventAdapter(night.events, this.activity)
 
         newNightEventRecycleView.layoutManager = layoutManager
         newNightEventRecycleView.adapter = adapter
@@ -56,6 +55,10 @@ class ContentNewNight: Fragment() {
     }
 
     private fun initUi(){
+
+        editAddName.setText(night.name)
+        editAddDesc.setText(night.desc)
+
         fabSaveNight.setOnClickListener {
             updateNight()
             if(noFieldsAreNull(night))
@@ -65,7 +68,7 @@ class ContentNewNight: Fragment() {
         }
 
         btnSelectDateTime.setOnClickListener{
-                val datePickerDialog = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                val datePickerDialog = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     //on date set
                     myCalendar.set(Calendar.YEAR, year)
                     myCalendar.set(Calendar.MONTH, month)
@@ -83,7 +86,8 @@ class ContentNewNight: Fragment() {
         }
 
         btnAddEvent.setOnClickListener{
-            TODO()
+            updateNight()
+            (activity as MainActivity).openAddEventToNightPanel(night)
         }
 
         updateLabel()
@@ -109,6 +113,12 @@ class ContentNewNight: Fragment() {
 
         fun newInstance(): ContentNewNight {
             return ContentNewNight()
+        }
+
+        fun newInstance(night: Night): ContentNewNight {
+            val fragment = ContentNewNight()
+            fragment.night = night
+            return fragment
         }
     }
 }

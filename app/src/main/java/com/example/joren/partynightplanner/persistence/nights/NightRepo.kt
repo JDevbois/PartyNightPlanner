@@ -12,12 +12,19 @@ class NightRepo {
         }
 
         fun addNight(night: Night){
-            DummyData.nights.add(night)
+            if(!getAllNights().contains(night))
+                DummyData.nights.add(night)
+            else
+                DummyData.nights.map { if (it == night) night else it }
         }
 
         fun getNightsByUser(id: String): List<Night> {
             //TODO firebase request to filter by id field
             return DummyData.nights
+        }
+
+        fun getNightById(id: String) : Night?{
+            return getAllNights().find{ n -> n.id == id }
         }
     }
 }

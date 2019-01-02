@@ -37,7 +37,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:layout_height="wrap_content"
         android:layout_width="100dp"
-        android:id="@+id/fabSaveNight"
+        android:id="@+id/fabAddEvent"
         app:layout_anchor="@id/AddEventLinear"
         android:src="@drawable/baseline_library_add_black_18dp"
         app:layout_anchorGravity="right|bottom" />

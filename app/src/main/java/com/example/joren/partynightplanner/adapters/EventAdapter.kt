@@ -12,9 +12,9 @@ import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.util.DownloadImageTask
 
-class EventAdapter (private val dataSet: List<Event>, private val parentActivity: FragmentActivity?) : RecyclerView.Adapter<EventAdapter.ViewHolder>(){
+open class EventAdapter (private val dataSet: List<Event>, private val parentActivity: FragmentActivity?) : RecyclerView.Adapter<EventAdapter.ViewHolder>(){
 
-    private val onClickListener: View.OnClickListener
+    var onClickListener: View.OnClickListener
 
     init {
         onClickListener = View.OnClickListener { e ->

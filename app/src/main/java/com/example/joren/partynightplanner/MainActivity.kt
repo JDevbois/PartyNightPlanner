@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.domain.Night
@@ -30,7 +31,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.logged_in_fragment.*
 import org.json.JSONObject
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -223,5 +223,31 @@ class MainActivity : AppCompatActivity() {
     fun saveNight(night: Night) {
         NightRepo.addNight(night)
         openPlannedNightsPanel()
+    }
+
+    fun openAddEventToNightPanel(night: Night) {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content, ContentAddEventToNight.newInstance(night))
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun addEventToNight(selectedItem: Event?, night: Night) {
+        if (selectedItem != null) {
+            night.events.add(selectedItem)
+            openNewNightPanel(night)
+        } else {
+            Toast.makeText(this, "No event was added because you did not select one", Toast.LENGTH_LONG).show()
+            openNewNightPanel()
+        }
+    }
+
+    private fun openNewNightPanel(night: Night) {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content, ContentNewNight.newInstance(night))
+                .addToBackStack(null)
+                .commit()
     }
 }

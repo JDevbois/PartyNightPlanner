@@ -43,13 +43,8 @@ class EventRepo {
             }
         }
 
-        fun getEventsForNight(night: Night): List<Event> {
-            //TODO
-            return listOf()
-        }
-
         fun getEventsAfter(time: Date?): List<Event> {
-            return getAllEvents().filter { e -> e.date.after(time) }
+            return getAllEvents().filter { e -> e.date.before(time) }
         }
 
         const val BY_DATE = 0

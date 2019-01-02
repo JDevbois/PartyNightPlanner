@@ -11,6 +11,6 @@ data class Event(
         var imgSrc: String,
         var organiser: String
 ) : Serializable {
-
+    var id: String = ""
     constructor(): this("", "", Calendar.getInstance().time, "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", "")
 }

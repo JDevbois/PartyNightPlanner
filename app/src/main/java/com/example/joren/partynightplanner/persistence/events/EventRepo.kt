@@ -48,6 +48,10 @@ class EventRepo {
             return listOf()
         }
 
+        fun getEventsAfter(time: Date?): List<Event> {
+            return getAllEvents().filter { e -> e.date.after(time) }
+        }
+
         const val BY_DATE = 0
         const val BY_NAME = 1
         const val BY_ORGANISER = 2

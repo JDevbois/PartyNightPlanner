@@ -54,15 +54,14 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Start Date and Time"
+                android:text="When does your night out start?"
                 android:id="@+id/btnSelectDateTime"
                 android:drawableLeft="@drawable/ic_date_range_black_24dp"/>
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:id="@+id/txtDateAdd"
-                android:text="22 December 23:00:00 UTC+1"/>
+                android:id="@+id/txtDateAdd" />
 
         </android.support.v7.widget.LinearLayoutCompat>
 
@@ -80,6 +79,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/btnAddEvent"
                 android:drawableLeft="@drawable/baseline_library_add_black_18dp"
                 android:text="Add event" />
         </android.support.v7.widget.LinearLayoutCompat>
@@ -98,7 +98,6 @@
         </android.support.v7.widget.RecyclerView>
     </android.support.v7.widget.LinearLayoutCompat>
 
-    <!--todo: save icon-->
     <android.support.design.widget.FloatingActionButton
         android:layout_margin="@dimen/fab_margin"
         android:layout_height="wrap_content"

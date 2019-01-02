@@ -20,6 +20,7 @@ import com.example.joren.partynightplanner.views.*
 import com.example.joren.partynightplanner.views.details.ContentNightDetail
 import com.example.joren.partynightplanner.views.details.EventDetailFragment
 import com.example.joren.partynightplanner.views.loggedIn.LoggedInFragment
+import com.example.joren.partynightplanner.views.newNight.ContentAddEventToNight
 import com.example.joren.partynightplanner.views.newNight.ContentNewNight
 import com.example.joren.partynightplanner.views.plannedNights.ContentPlannedNights
 import com.example.joren.partynightplanner.views.search.ContentSearch
@@ -29,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.logged_in_fragment.*
 import org.json.JSONObject
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -188,7 +190,7 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
-    fun loadFbData(){
+    private fun loadFbData(){
         //LOAD fb data
         if(isLoggedIn){
             val request = GraphRequest.newMeRequest(accessToken) { `object`, response ->

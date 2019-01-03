@@ -1,5 +1,6 @@
 package com.example.joren.partynightplanner.domain
 
+import com.example.joren.partynightplanner.persistence.users.UserRepo
 import java.io.Serializable
 import java.util.*
 
@@ -8,8 +9,12 @@ data class Night(var name: String, var desc: String, var events: MutableList<Eve
     var id = ""
 
     fun friendsToString(): String {
-        //TODO this should convert userids to names via facebook api
-        return this.friends.joinToString(separator = ", ")
+        //TODO via facebook api
+        var out = mutableListOf<String>()
+        for (s: String in friends){
+            out.add(UserRepo.findUserById(s).name)
+        }
+        return out.joinToString(separator = ", ")
     }
 
     fun getSortedEvents(): MutableList<Event>{

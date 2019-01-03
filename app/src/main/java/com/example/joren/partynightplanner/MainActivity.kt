@@ -20,8 +20,8 @@ import com.example.joren.partynightplanner.persistence.nights.NightRepo
 import com.example.joren.partynightplanner.views.*
 import com.example.joren.partynightplanner.views.details.ContentNightDetail
 import com.example.joren.partynightplanner.views.details.EventDetailFragment
-import com.example.joren.partynightplanner.views.loggedIn.ContentInviteFriends
-import com.example.joren.partynightplanner.views.loggedIn.LoggedInFragment
+import com.example.joren.partynightplanner.views.facebook.ContentInviteFriends
+import com.example.joren.partynightplanner.views.facebook.LoggedInFragment
 import com.example.joren.partynightplanner.views.newNight.ContentAddEventToNight
 import com.example.joren.partynightplanner.views.newNight.ContentNewNight
 import com.example.joren.partynightplanner.views.plannedNights.ContentPlannedNights
@@ -247,7 +247,7 @@ class MainActivity : AppCompatActivity() {
     fun openInviteFriendsPanel(item: Night) {
         supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.content, ContentInviteFriends.newInstance())
+                .replace(R.id.content, ContentInviteFriends.newInstance(item))
                 .addToBackStack(null)
                 .commit()
     }

@@ -1,4 +1,4 @@
-package com.example.joren.partynightplanner.views.loggedIn
+package com.example.joren.partynightplanner.views.facebook
 
 import android.content.Intent
 import android.os.Bundle

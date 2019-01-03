@@ -17,17 +17,10 @@
         android:layout_margin="10dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnInviteNotOnApp"
-        android:text="Invite friends who are not on the app yet"
-        android:drawableLeft="@drawable/ic_person_add_black_24dp"
-        android:textAlignment="textEnd"
-        />
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:id="@+id/friendsRecycleView"
         tools:listitem="@layout/friend_fragment">
 
     </android.support.v7.widget.RecyclerView>
@@ -42,5 +35,12 @@
         android:drawableStart="@drawable/com_facebook_button_icon_white"
         android:background="@color/com_facebook_button_background_color"
         android:textColor="@color/com_facebook_button_text_color"/>
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnInviteNotOnApp"
+        android:text="Invite friends who are not on the app yet"
+        android:drawableLeft="@drawable/ic_person_add_black_24dp"
+        android:textAlignment="textEnd"
+        />
 </android.support.v7.widget.LinearLayoutCompat>

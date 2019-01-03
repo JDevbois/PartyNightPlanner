@@ -9,6 +9,8 @@ import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.domain.Event
 import kotlinx.android.synthetic.main.event_detail.view.*
 import com.example.joren.partynightplanner.util.DownloadImageTask
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class EventDetailFragment : Fragment() {
@@ -30,6 +32,8 @@ class EventDetailFragment : Fragment() {
         event.let {
             rootView.eventDetailTitle.text = event.title
             rootView.eventDetailDesc.text = event.desc
+            rootView.eventDetailStartDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(event.startDate)
+            rootView.eventDetailEndDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(event.endDate)
 
             DownloadImageTask(rootView.eventDetailImg).execute(event.imgSrc)
         }

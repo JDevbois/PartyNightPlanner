@@ -7,10 +7,11 @@ import java.util.*
 data class Event(
         var title: String,
         var desc: String,
-        var date: Date,
+        var startDate: Date,
+        var endDate: Date,
         var imgSrc: String,
         var organiser: String
 ) : Serializable {
     var id: String = ""
-    constructor(): this("", "", Calendar.getInstance().time, "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", "")
+    constructor(): this("", "", Calendar.getInstance().time, Date(2019, 1, 6), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", "")
 }

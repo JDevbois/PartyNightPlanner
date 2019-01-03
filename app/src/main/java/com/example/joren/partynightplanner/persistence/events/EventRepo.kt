@@ -21,10 +21,10 @@ class EventRepo {
 
         //TODO move to view model and filter livedata
         private fun getEventsByDate(query: String): List<Event>{
-            return getAllEvents().filter { e -> SimpleDateFormat("MM/dd/yy", Locale.US).format(e.date) == query }
+            return getAllEvents().filter { e -> SimpleDateFormat("MM/dd/yy", Locale.US).format(e.startDate) == query }
         }
         fun getAllEvents(): List<Event> {
-            return DummyData.events
+            return DummyData.events.sortedBy { e -> e.startDate.time }
         }
 
         //TODO move to view model and filter livedata
@@ -44,7 +44,7 @@ class EventRepo {
         }
 
         fun getEventsAfter(time: Date?): List<Event> {
-            return getAllEvents().filter { e -> e.date.before(time) }
+            return getAllEvents().filter { e -> e.endDate.after(time) }
         }
 
         const val BY_DATE = 0

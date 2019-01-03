@@ -11,5 +11,9 @@ data class Night(var name: String, var desc: String, var events: MutableList<Eve
         return this.friends.joinToString(separator = ", ")
     }
 
+    fun getSortedEvents(): MutableList<Event>{
+        return events.asSequence().sortedWith(compareBy {it.startDate.time}).toMutableList()
+    }
+
     constructor(): this("", "", mutableListOf(), Calendar.getInstance().time, mutableListOf())
 }

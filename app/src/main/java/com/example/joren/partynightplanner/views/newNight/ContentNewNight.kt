@@ -64,7 +64,7 @@ class ContentNewNight: Fragment() {
             if(noFieldsAreNull(night))
                 (activity as MainActivity).saveNight(night)
             else
-                Toast.makeText(context, "You can't leave any of the fields empty.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "You can't leave any of the fields empty. A night also needs at least one event", Toast.LENGTH_LONG).show()
         }
 
         btnSelectDateTime.setOnClickListener{
@@ -94,7 +94,7 @@ class ContentNewNight: Fragment() {
     }
 
     private fun noFieldsAreNull(night: Night): Boolean {
-        return (night.name != "" && night.desc != "")
+        return (night.name != "" && night.desc != "" && night.events.isNotEmpty())
     }
 
     private fun updateLabel(){

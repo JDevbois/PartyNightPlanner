@@ -4,13 +4,14 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
     <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="10dp"
         android:orientation="vertical">
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/eventDetailTitle"
+            android:id="@+id/nightDetailName"
             android:text="Name Placeholder"
             android:textSize="30sp"
             android:textAlignment="center"/>
@@ -19,21 +20,79 @@
             android:layout_margin="10dp"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            tools:srcCompat="@tools:sample/avatars"
-            android:id="@+id/eventDetailImg"/>
-        <android.support.v7.widget.AppCompatTextView
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/eventDetailDateAndTime"
-            android:text="@string/from_20_00_to_22_00"/>
-        <android.support.v7.widget.AppCompatTextView
+            android:orientation="horizontal">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:id="@+id/nightDetailRecyclerview"
+                tools:listitem="@layout/event_fragment"
+                android:layout_gravity="center_horizontal">
+            </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/loremipsum"
+                android:id="@+id/nightDetailDesc"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+        <View
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/loremipsum"
-            android:id="@+id/eventDetailDesc" />
+            android:orientation="horizontal">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Starts on: "/>
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nightDetailStartDateAndTime"
+                android:text="@string/from_20_00_to_22_00"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Ends on: "/>
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nightDetailEndDateAndTime"
+                android:text="@string/from_20_00_to_22_00"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Friends attending: "/>
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/loremipsum"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/invite_friends"
+            android:id="@+id/btnDetailInviteFriends"
+            android:drawableStart="@drawable/com_facebook_button_icon_white"
+            android:background="@color/com_facebook_button_background_color"
+            android:layout_marginVertical="10dp"
+            android:paddingStart="10dp"
+            android:textColor="@color/com_facebook_button_text_color"/>
     </android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.constraint.ConstraintLayout>

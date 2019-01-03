@@ -12,6 +12,7 @@ import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.domain.Night
 import im.getsocial.sdk.ui.GetSocialUi
+import kotlinx.android.synthetic.main.night_fragment.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,11 +32,6 @@ class NightAdapter(private val dataSet: List<Night>, private val parentActivity:
         val view  = LayoutInflater.from(parent.context)
                 .inflate(R.layout.night_fragment, parent, false)
 
-        // TODO: have an actual invite friends screen
-        view.findViewById<Button>(R.id.btnInvite).setOnClickListener{
-            val wasShown = GetSocialUi.createInvitesView().show()
-            Log.i("GetSocial", "GetSocial Smart Invites UI was shown: $wasShown")
-        }
         return ViewHolder(view)
     }
 
@@ -50,6 +46,13 @@ class NightAdapter(private val dataSet: List<Night>, private val parentActivity:
         with(holder.itemView){
             tag = night
             setOnClickListener(onClickListener)
+            btnInvite.setOnClickListener{
+                tag = night
+                if(parentActivity is MainActivity){
+                    val item = tag as Night
+                    parentActivity.openInviteFriendsPanel(item)
+                }
+            }
         }
     }
 
@@ -60,9 +63,5 @@ class NightAdapter(private val dataSet: List<Night>, private val parentActivity:
         var itemDesc: TextView = itemView.findViewById(R.id.nightDesc)
         var itemDate: TextView = itemView.findViewById(R.id.nightDate)
         var itemFriends: TextView = itemView.findViewById(R.id.nightFriends)
-
-        init{
-            // itemImage = itemView.findViewById(R.id.eventImg)
-        }
     }
 }

@@ -13,4 +13,5 @@
     <string name="invite_friends">Invite friends</string>
     <string name="loremipsum">lorem ipsum dolor sit amet</string>
     <string name="selectEventHelp">Tap the event you want to add and press the add button in the left bottom corner</string>
+    <string name="facebookregulations">Because of facebook regulations only the friends who are also using the app will show up here, if you want to invite others, click the invite button down below to send them a link to the app in the google play store</string>
 </resources>

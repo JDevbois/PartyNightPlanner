@@ -20,6 +20,7 @@ import com.example.joren.partynightplanner.persistence.nights.NightRepo
 import com.example.joren.partynightplanner.views.*
 import com.example.joren.partynightplanner.views.details.ContentNightDetail
 import com.example.joren.partynightplanner.views.details.EventDetailFragment
+import com.example.joren.partynightplanner.views.loggedIn.ContentInviteFriends
 import com.example.joren.partynightplanner.views.loggedIn.LoggedInFragment
 import com.example.joren.partynightplanner.views.newNight.ContentAddEventToNight
 import com.example.joren.partynightplanner.views.newNight.ContentNewNight
@@ -241,6 +242,14 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "No event was added because you did not select one", Toast.LENGTH_LONG).show()
             openNewNightPanel()
         }
+    }
+
+    fun openInviteFriendsPanel(item: Night) {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content, ContentInviteFriends.newInstance())
+                .addToBackStack(null)
+                .commit()
     }
 
     private fun openNewNightPanel(night: Night) {

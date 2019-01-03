@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Night
+import im.getsocial.sdk.ui.GetSocialUi
 import kotlinx.android.synthetic.main.content_new_night.*
 import kotlinx.android.synthetic.main.night_detail.*
 import kotlinx.android.synthetic.main.night_detail.view.*
@@ -53,6 +56,10 @@ class ContentNightDetail: Fragment() {
 
         nightDetailRecyclerview.layoutManager = layoutManager
         nightDetailRecyclerview.adapter = adapter
+
+        btnDetailInviteFriends.setOnClickListener {
+            (activity as MainActivity).openInviteFriendsPanel(night)
+        }
     }
 
     override fun onStop() {
@@ -63,6 +70,8 @@ class ContentNightDetail: Fragment() {
 
         nightDetailRecyclerview.layoutManager = null
         nightDetailRecyclerview.adapter = null
+
+        btnDetailInviteFriends.setOnClickListener(null)
     }
 
     companion object {

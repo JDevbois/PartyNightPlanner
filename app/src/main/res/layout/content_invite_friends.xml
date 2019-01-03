@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select friends to invite"
+        android:textSize="30sp"
+        android:textAlignment="center"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnInviteNotOnApp"
+        android:text="Invite friends who are not on the app yet"
+        android:drawableLeft="@drawable/ic_person_add_black_24dp"
+        android:textAlignment="textEnd"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        tools:listitem="@layout/friend_fragment">
+
+    </android.support.v7.widget.RecyclerView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnInvite"
+        android:text="@string/invite_friends"
+        android:paddingHorizontal="@dimen/fab_margin"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="2dp"
+        android:drawableStart="@drawable/com_facebook_button_icon_white"
+        android:background="@color/com_facebook_button_background_color"
+        android:textColor="@color/com_facebook_button_text_color"/>
+
+</android.support.v7.widget.LinearLayoutCompat>

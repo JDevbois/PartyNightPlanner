@@ -8,6 +8,7 @@ data class Night(var name: String, var desc: String, var events: MutableList<Eve
     var id = ""
 
     fun friendsToString(): String {
+        //TODO this should convert userids to names via facebook api
         return this.friends.joinToString(separator = ", ")
     }
 

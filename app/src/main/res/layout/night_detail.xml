@@ -81,6 +81,7 @@
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/nightDetailFriends"
                 android:text="@string/loremipsum"/>
         </android.support.v7.widget.LinearLayoutCompat>
         <Button

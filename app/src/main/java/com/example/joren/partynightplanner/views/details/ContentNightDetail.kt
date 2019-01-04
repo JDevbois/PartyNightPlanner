@@ -41,6 +41,8 @@ class ContentNightDetail: Fragment() {
             rootView.nightDetailDesc.text = night.desc
             rootView.nightDetailStartDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(night.retrieveSortedEvents()[0].startDate.time)
             rootView.nightDetailEndDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(night.retrieveSortedEvents()[night.retrieveSortedEvents().size - 1].endDate.time)
+            //TODO: nice to have -> very small profilepic icons instead of text
+            rootView.nightDetailFriends.text = night.friendsToString()
         }
 
         return rootView

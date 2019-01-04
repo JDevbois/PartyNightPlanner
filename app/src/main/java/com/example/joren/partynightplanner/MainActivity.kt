@@ -222,13 +222,14 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_invitations -> {
+                    //TODO
                     true
                 }
                 else -> false
             }
         }
     }
-    
+
     companion object {
         // TODO: shield routes with isLoggedIn
         var accessToken: AccessToken? = AccessToken.getCurrentAccessToken()

@@ -21,10 +21,9 @@ class DownloadImageTask(val imageView: ImageView) : AsyncTask<String, Void, Bitm
     override fun onPostExecute(result: Bitmap?) {
         if(result!=null){
             // Display the downloaded image into image view
-            Toast.makeText(imageView.context,"Image loaded",Toast.LENGTH_SHORT).show()
             imageView.setImageBitmap(result)
         }else{
-            Toast.makeText(imageView.context,"Error downloading image",Toast.LENGTH_SHORT).show()
+            Toast.makeText(imageView.context,"Error downloading image", Toast.LENGTH_SHORT).show()
         }
     }
 }

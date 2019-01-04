@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initUi()
 
-        // DEBUGGING PURPOSES ONLY
+        // TODO: DEBUGGING PURPOSES ONLY
         // Database.getInstance().loadDummyDataToDB()
     }
 

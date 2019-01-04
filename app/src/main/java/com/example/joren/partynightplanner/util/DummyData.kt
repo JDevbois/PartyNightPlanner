@@ -32,6 +32,7 @@ class DummyData {
                         Calendar.getInstance().time, listOf("2239758839369841", "2236388479761767"))
         )
 
+        //TODO rework with facebook api test users
         var users: MutableList<User> = mutableListOf(
                 User("2239758839369841", "Joren Debois", "https://scontent-bru2-1.xx.fbcdn.net/v/t31.0-8/17545174_1489914657687600_2380384967662063903_o.jpg?_nc_cat=106&_nc_ht=scontent-bru2-1.xx&oh=b7164a3287f3801f1b7e8005ea07ec3c&oe=5CD055E0"),
                 User("2236388479761767", "Miriam Plugge", "https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-1/c5.0.160.160a/p160x160/45282917_2151860321547917_1694150558576803840_n.jpg?_nc_cat=103&_nc_ht=scontent-bru2-1.xx&oh=d770a1f7e76ac69c17be7dc051af83c7&oe=5C9865B5")

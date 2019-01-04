@@ -15,6 +15,7 @@ import android.view.KeyEvent
 import com.example.joren.partynightplanner.persistence.events.EventRepo
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
+import com.example.joren.partynightplanner.persistence.events.MyEventRepo
 
 
 class ContentSearch : Fragment() {
@@ -36,7 +37,7 @@ class ContentSearch : Fragment() {
         editTextSearch.tag = editTextSearch.keyListener
 
         initOptions()
-        setSearchOption(EventRepo.BY_NAME)
+        setSearchOption(MyEventRepo.BY_NAME)
 
         btnSearch.setOnClickListener {
             search()
@@ -52,7 +53,7 @@ class ContentSearch : Fragment() {
 
         editTextSearch.setOnClickListener{
             var isDataSet = false
-            if (selectedOption == EventRepo.BY_DATE){
+            if (selectedOption == MyEventRepo.BY_DATE){
                 val datePickerDialog = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     myCalendar.set(Calendar.YEAR, year)
                     myCalendar.set(Calendar.MONTH, month)
@@ -69,7 +70,7 @@ class ContentSearch : Fragment() {
 
         editTextSearch.setOnFocusChangeListener { v, hasFocus ->
             var isDataSet = false
-            if (selectedOption == EventRepo.BY_DATE){
+            if (selectedOption == MyEventRepo.BY_DATE){
                 val datePickerDialog = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     myCalendar.set(Calendar.YEAR, year)
                     myCalendar.set(Calendar.MONTH, month)
@@ -94,13 +95,13 @@ class ContentSearch : Fragment() {
 
     private fun initOptions(){
         optionDatum.setOnClickListener {
-            setSearchOption(EventRepo.BY_DATE)
+            setSearchOption(MyEventRepo.BY_DATE)
         }
         optionEventname.setOnClickListener {
-            setSearchOption(EventRepo.BY_NAME)
+            setSearchOption(MyEventRepo.BY_NAME)
         }
         optionOrganiser.setOnClickListener {
-            setSearchOption(EventRepo.BY_ORGANISER)
+            setSearchOption(MyEventRepo.BY_ORGANISER)
         }
     }
 
@@ -112,7 +113,7 @@ class ContentSearch : Fragment() {
 
     private fun updateOptionViews(){
         when (selectedOption){
-            EventRepo.BY_DATE -> {
+            MyEventRepo.BY_DATE -> {
                 optionDatum.setTextColor(Color.RED)
                 optionEventname.setTextColor(Color.BLACK)
                 optionOrganiser.setTextColor(Color.BLACK)
@@ -123,7 +124,7 @@ class ContentSearch : Fragment() {
                 editTextSearch.isFocusable = true
 
             }
-            EventRepo.BY_NAME -> {
+            MyEventRepo.BY_NAME -> {
                 optionDatum.setTextColor(Color.BLACK)
                 optionEventname.setTextColor(Color.RED)
                 optionOrganiser.setTextColor(Color.BLACK)
@@ -131,7 +132,7 @@ class ContentSearch : Fragment() {
                 editTextSearch.keyListener = editTextSearch.tag as KeyListener
 
             }
-            EventRepo.BY_ORGANISER -> {
+            MyEventRepo.BY_ORGANISER -> {
                 optionDatum.setTextColor(Color.BLACK)
                 optionEventname.setTextColor(Color.BLACK)
                 optionOrganiser.setTextColor(Color.RED)

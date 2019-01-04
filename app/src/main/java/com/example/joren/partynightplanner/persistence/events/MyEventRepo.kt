@@ -1,6 +1,10 @@
 package com.example.joren.partynightplanner.persistence.events
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Transformations
+import android.util.Log
 import com.example.joren.partynightplanner.domain.Event
+import com.example.joren.partynightplanner.domain.Night
 import com.example.joren.partynightplanner.util.DummyData
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,8 +55,14 @@ class MyEventRepo private constructor(private val eventDao: EventDao){
         }
     }
 
-    fun getEventsAfter(time: Date?): List<Event> {
-        return getEvents().value!!.filter { e -> e.endDate.after(time) }
+    fun getAddableEventsForNight(night: Night): LiveData<List<Event>> {
+        // return getEvents().value!!.filter { e -> e.endDate.after(time) }
+        //TODO filter out events that are already in night
+        return Transformations.map(getEvents()){events ->
+            events.filter { e ->
+                e.endDate.after(night.date)
+            }
+        }
     }
 
     companion object {

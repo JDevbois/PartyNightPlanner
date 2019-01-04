@@ -1,9 +1,12 @@
 package com.example.joren.partynightplanner.views.newNight
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +16,11 @@ import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.adapters.SelectEventAdapter
 import com.example.joren.partynightplanner.domain.Night
 import com.example.joren.partynightplanner.persistence.events.EventRepo
+import com.example.joren.partynightplanner.util.InjectorUtils
+import com.example.joren.partynightplanner.views.plannedNights.PlannedNightsViewModel
 import kotlinx.android.synthetic.main.content_add_event_to_night.*
 
 class ContentAddEventToNight : Fragment() {
-    lateinit var night: Night
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<EventAdapter.ViewHolder>? = null
 
@@ -24,36 +28,43 @@ class ContentAddEventToNight : Fragment() {
         return inflater.inflate(R.layout.content_add_event_to_night, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments!!.let{
-            if (it.containsKey(ARG_NIGHT)){
-                night = it.getSerializable(ARG_NIGHT) as Night
-            }
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         initUi()
-        layoutManager = LinearLayoutManager(this.context)
-        adapter = SelectEventAdapter(EventRepo.getEventsAfter(night.date), this.activity)
-
-        selectEventRecyclerView.layoutManager = layoutManager
-        selectEventRecyclerView.adapter = adapter
     }
 
     override fun onStop() {
         super.onStop()
+
         layoutManager = null
         adapter = null
+        selectEventRecyclerView.layoutManager = null
+        selectEventRecyclerView.adapter = null
     }
 
     private fun initUi() {
-        fabAddEvent.setOnClickListener {
-            (activity as MainActivity).addEventToNight((adapter as SelectEventAdapter).selectedItem, night)
+        val factory = InjectorUtils.provideNewNightViewModelFactory()
+        val viewModel = ViewModelProviders.of(this, factory).get(NewNightViewModel::class.java)
+
+        arguments!!.let{
+            if (it.containsKey(ARG_NIGHT)){
+                viewModel.parseNight(it.getSerializable(ARG_NIGHT) as Night)
+            }
         }
+
+        fabAddEvent.setOnClickListener {
+            (activity as MainActivity).addEventToNight((adapter as SelectEventAdapter).selectedItem, viewModel.night!!)
+        }
+
+        layoutManager = LinearLayoutManager(this.context)
+        selectEventRecyclerView.layoutManager = layoutManager
+
+        viewModel.getAvailableEvents().observe(this, Observer {events ->
+            adapter = SelectEventAdapter(events!!, this.activity)
+            //DEBUG
+            Log.i("ContentAddEventToNight", events.toString())
+            selectEventRecyclerView.adapter = adapter
+        })
     }
 
     companion object {

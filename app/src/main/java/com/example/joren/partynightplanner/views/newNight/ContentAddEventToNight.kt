@@ -11,13 +11,9 @@ import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.adapters.SelectEventAdapter
-import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.domain.Night
 import com.example.joren.partynightplanner.persistence.events.EventRepo
-import com.example.joren.partynightplanner.persistence.nights.NightRepo
-import com.example.joren.partynightplanner.views.details.EventDetailFragment
 import kotlinx.android.synthetic.main.content_add_event_to_night.*
-import kotlinx.android.synthetic.main.content_new_night.*
 
 class ContentAddEventToNight : Fragment() {
     lateinit var night: Night

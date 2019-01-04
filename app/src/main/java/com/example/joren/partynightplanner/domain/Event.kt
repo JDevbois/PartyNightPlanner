@@ -13,5 +13,5 @@ data class Event(
         var organiser: String
 ) : Serializable {
     var id = ""
-    constructor(): this("", "", Calendar.getInstance().time, Date(2019, 1, 6), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", "")
+    constructor(): this("", "", Calendar.getInstance().time, Calendar.getInstance().time, "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", "")
 }

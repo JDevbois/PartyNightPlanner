@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.adapters.NightAdapter
-import com.example.joren.partynightplanner.persistence.nights.NightRepo
 import com.example.joren.partynightplanner.util.InjectorUtils
 import kotlinx.android.synthetic.main.content_plannednights.*
 

@@ -7,12 +7,15 @@ import java.util.*
 
 class DummyData {
     companion object {
+        private const val YEAR_OFFSET: Int = 1900
+        private val CURR_YEAR: Int = 2019 - YEAR_OFFSET
+
         var events: MutableList<Event> = mutableListOf(
-                Event("ShotjesAvond", "22u - 23u", Date(2019, 2, 3), Date(2019, 2, 3), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", ""),
-                Event("Watercantus", "20u - 00u", Date(2019, 2, 4), Date(2019, 2, 3), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", ""),
-                Event("All Star On Repeat", "8u - 20u", Date(2019, 2, 7), Date(2019, 2, 3), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", ""),
-                Event("All Star On Repeat", "8u - 20u", Date(2019, 2, 7), Date(2019, 2, 3), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", ""),
-                Event("All Star On Repeat", "8u - 20u", Date(2019, 2, 7), Date(2019, 2, 3), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", ""),
+                Event("ShotjesAvond", "22u - 23u", Date(CURR_YEAR, 2, 3), Date(CURR_YEAR, 2, 3), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", ""),
+                Event("Watercantus", "20u - 00u", Date(CURR_YEAR, 2, 3), Date(CURR_YEAR, 2, 4), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", ""),
+                Event("All Star On Repeat", "8u - 20u", Date(CURR_YEAR, 2, 3), Date(CURR_YEAR, 2, 7), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", ""),
+                Event("All Star On Repeat", "8u - 20u", Date(CURR_YEAR, 2, 3), Date(CURR_YEAR, 2, 7), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", ""),
+                Event("All Star On Repeat", "8u - 20u", Date(CURR_YEAR, 2, 3), Date(CURR_YEAR, 2, 7), "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", ""),
                 Event("All Star On Repeat", "8u - 20u", Calendar.getInstance().time, Calendar.getInstance().time, "http://www.vaultads.com/wp-content/uploads/2011/03/google-adsense.jpg", "")
         )
 

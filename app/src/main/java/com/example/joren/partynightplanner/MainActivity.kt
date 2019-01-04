@@ -16,9 +16,7 @@ import android.widget.Toast
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.domain.Night
-import com.example.joren.partynightplanner.persistence.Database
 import com.example.joren.partynightplanner.persistence.events.EventRepo
-import com.example.joren.partynightplanner.persistence.nights.NightRepo
 import com.example.joren.partynightplanner.util.InjectorUtils
 import com.example.joren.partynightplanner.views.*
 import com.example.joren.partynightplanner.views.details.ContentNightDetail
@@ -28,7 +26,6 @@ import com.example.joren.partynightplanner.views.facebook.LoggedInFragment
 import com.example.joren.partynightplanner.views.newNight.ContentAddEventToNight
 import com.example.joren.partynightplanner.views.newNight.ContentNewNight
 import com.example.joren.partynightplanner.views.plannedNights.ContentPlannedNights
-import com.example.joren.partynightplanner.views.plannedNights.PlannedNightsViewModel
 import com.example.joren.partynightplanner.views.search.ContentSearch
 import com.example.joren.partynightplanner.views.search.ContentSearchResult
 import com.facebook.*
@@ -39,9 +36,6 @@ import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
-
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<EventAdapter.ViewHolder>? = null
 
     var accessToken: AccessToken? = AccessToken.getCurrentAccessToken()
     var isLoggedIn = accessToken != null && !accessToken!!.isExpired
@@ -54,36 +48,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initUi()
 
-    }
-
-    override fun onStart(){
-        Log.i("MainActivity", "starting")
-        super.onStart()
-
-        layoutManager = LinearLayoutManager(this)
-        eventRecycleView.layoutManager = layoutManager
-
-        adapter = EventAdapter(EventRepo.getAllEvents(), this)
-        eventRecycleView.adapter = adapter
-    }
-
-    override fun onResume(){
-        Log.i("MainActivity", "resuming")
-
-        super.onResume()
-        layoutManager = LinearLayoutManager(this)
-        eventRecycleView.layoutManager = layoutManager
-
-        adapter = EventAdapter(EventRepo.getAllEvents(), this)
-        eventRecycleView.adapter = adapter
-    }
-
-    override fun onStop() {
-        Log.i("MainActivity", "stopping")
-        layoutManager = null
-        adapter = null
-
-        super.onStop()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

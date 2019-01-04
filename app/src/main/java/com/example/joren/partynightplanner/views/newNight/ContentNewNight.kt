@@ -21,9 +21,9 @@ import java.util.*
 
 class ContentNewNight: Fragment() {
 
-    // TODO: addEvent click handler
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<EventAdapter.ViewHolder>? = null
+    // TODO: add own userid to friends
     private var night: Night = Night()
 
     private val myCalendar = Calendar.getInstance()!!
@@ -41,6 +41,7 @@ class ContentNewNight: Fragment() {
     override fun onStart() {
         super.onStart()
         initUi()
+        //TODO move to initui with viewmodel
         layoutManager = LinearLayoutManager(this.context)
         adapter = EventAdapter(night.events, this.activity)
 

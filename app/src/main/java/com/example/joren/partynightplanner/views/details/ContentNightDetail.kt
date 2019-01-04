@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,6 @@ import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Night
-import im.getsocial.sdk.ui.GetSocialUi
-import kotlinx.android.synthetic.main.content_new_night.*
 import kotlinx.android.synthetic.main.night_detail.*
 import kotlinx.android.synthetic.main.night_detail.view.*
 import java.text.SimpleDateFormat
@@ -41,8 +38,8 @@ class ContentNightDetail: Fragment() {
         night.let {
             rootView.nightDetailName.text = night.name
             rootView.nightDetailDesc.text = night.desc
-            rootView.nightDetailStartDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(night.getSortedEvents()[0].startDate.time)
-            rootView.nightDetailEndDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(night.getSortedEvents()[night.getSortedEvents().size - 1].endDate.time)
+            rootView.nightDetailStartDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(night.retrieveSortedEvents()[0].startDate.time)
+            rootView.nightDetailEndDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(night.retrieveSortedEvents()[night.retrieveSortedEvents().size - 1].endDate.time)
         }
 
         return rootView

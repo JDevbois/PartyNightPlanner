@@ -14,6 +14,7 @@ import com.example.joren.partynightplanner.adapters.FriendAdapter
 import com.example.joren.partynightplanner.adapters.SelectEventAdapter
 import com.example.joren.partynightplanner.domain.Night
 import com.example.joren.partynightplanner.persistence.events.EventRepo
+import com.example.joren.partynightplanner.persistence.users.UserRepo
 import com.example.joren.partynightplanner.util.DummyData
 import com.example.joren.partynightplanner.views.newNight.ContentAddEventToNight
 import im.getsocial.sdk.ui.GetSocialUi
@@ -54,7 +55,7 @@ class ContentInviteFriends : Fragment() {
         }
 
         layoutManager = LinearLayoutManager(this.context)
-        adapter = FriendAdapter(night.friends, this.activity)
+        adapter = FriendAdapter(UserRepo.users.map { u -> u.id }, this.activity)
 
         friendsRecycleView.layoutManager = layoutManager
         friendsRecycleView.adapter = adapter

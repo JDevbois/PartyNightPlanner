@@ -9,17 +9,14 @@ import java.util.*
 class EventRepo {
     companion object {
 
-        //TODO move to view model and filter livedata
         private fun getEventsByName(query: String): List<Event>{
             return getAllEvents().filter { e -> e.title.contains(query) }
         }
 
-        //TODO move to view model and filter livedata
         private fun getEventsByOrganiser(query: String): List<Event>{
             return getAllEvents().filter { e -> e.organiser.contains(query) }
         }
 
-        //TODO move to view model and filter livedata
         private fun getEventsByDate(query: String): List<Event>{
             return getAllEvents().filter { e -> SimpleDateFormat("MM/dd/yy", Locale.US).format(e.startDate) == query }
         }
@@ -27,7 +24,6 @@ class EventRepo {
             return DummyData.events.sortedBy { e -> e.startDate.time }
         }
 
-        //TODO move to view model and filter livedata
         fun getFilteredEvents(option: Int, query: String): List<Event> {
             return when(option){
                 BY_NAME -> {

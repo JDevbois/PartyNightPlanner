@@ -1,12 +1,18 @@
 package com.example.joren.partynightplanner.persistence
 
+import android.util.Log
+import com.example.joren.partynightplanner.domain.Event
+import com.example.joren.partynightplanner.domain.Night
 import com.example.joren.partynightplanner.persistence.events.EventDao
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.example.joren.partynightplanner.persistence.nights.NightDao
+//TODO: should move to actual repo
+import com.example.joren.partynightplanner.util.DummyData.Companion.events
+import com.example.joren.partynightplanner.util.DummyData.Companion.nights
+import com.google.firebase.database.*
 
 class Database private constructor(){
-    val EventDao = EventDao()
-
+    val eventDao: EventDao = EventDao()
+    val nightDao: NightDao = NightDao()
 
 
     /*
@@ -16,44 +22,29 @@ class Database private constructor(){
             database.child("nights").child(key).setValue(night)
         }
     }
-
-    fun initDatabase(){
-        val eventListener = object : ValueEventListener{
-            override fun onDataChange(p0: DataSnapshot) {
-                events.clear()
-                p0.children.mapNotNullTo(events){
-                    it.getValue<Event>(Event::class.java)
-                }
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                Log.i("Firebase","loadPost:onCancelled ${p0.toException()}")
-            }
-
-        }
-
-        val nightListener = object : ValueEventListener{
-            override fun onDataChange(p0: DataSnapshot) {
-                nights.clear()
-                p0.children.mapNotNullTo(nights){
-                    it.getValue<Night>(Night::class.java)
-                }
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                Log.i("Firebase","loadPost:onCancelled ${p0.toException()}")
-            }
-
-        }
-
-        database.addListenerForSingleValueEvent(eventListener)
-        database.addListenerForSingleValueEvent(nightListener)
-    }
     */
+    //TODO: Testing purposes only
+    fun loadDummyDataToDB(){
+        for (e: Event in events){
+            val key = eventCloudEndPoint.push().key
+            if (key != null){
+                eventCloudEndPoint.child(key).setValue(e.also { e.id = key })
+            }
+        }
+
+        for (n: Night in nights){
+            val key = nightCloudEndPoint.push().key
+            if (key != null){
+                nightCloudEndPoint.child(key).setValue(n.also { n.id = key })
+            }
+        }
+    }
 
     companion object {
 
-        private var firebaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
+        val firebaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
+        val eventCloudEndPoint:DatabaseReference = firebaseReference.child("events")
+        val nightCloudEndPoint:DatabaseReference = firebaseReference.child("nights")
 
         // singleton code
         @Volatile private var instance: Database? = null

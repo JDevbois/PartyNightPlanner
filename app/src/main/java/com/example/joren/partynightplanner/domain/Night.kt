@@ -17,7 +17,7 @@ data class Night(var name: String, var desc: String, var events: MutableList<Eve
         return out.joinToString(separator = ", ")
     }
 
-    fun getSortedEvents(): MutableList<Event>{
+    fun retrieveSortedEvents(): MutableList<Event>{
         return events.asSequence().sortedWith(compareBy {it.startDate.time}).toMutableList()
     }
 

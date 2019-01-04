@@ -22,9 +22,5 @@ class NightRepo {
             //TODO firebase request to filter by id field
             return DummyData.nights
         }
-
-        fun getNightById(id: String) : Night?{
-            return getAllNights().find{ n -> n.id == id }
-        }
     }
 }

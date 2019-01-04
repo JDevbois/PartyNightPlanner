@@ -1,5 +1,6 @@
 package com.example.joren.partynightplanner
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
@@ -15,8 +16,10 @@ import android.widget.Toast
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.domain.Night
+import com.example.joren.partynightplanner.persistence.Database
 import com.example.joren.partynightplanner.persistence.events.EventRepo
 import com.example.joren.partynightplanner.persistence.nights.NightRepo
+import com.example.joren.partynightplanner.util.InjectorUtils
 import com.example.joren.partynightplanner.views.*
 import com.example.joren.partynightplanner.views.details.ContentNightDetail
 import com.example.joren.partynightplanner.views.details.EventDetailFragment
@@ -25,6 +28,7 @@ import com.example.joren.partynightplanner.views.facebook.LoggedInFragment
 import com.example.joren.partynightplanner.views.newNight.ContentAddEventToNight
 import com.example.joren.partynightplanner.views.newNight.ContentNewNight
 import com.example.joren.partynightplanner.views.plannedNights.ContentPlannedNights
+import com.example.joren.partynightplanner.views.plannedNights.PlannedNightsViewModel
 import com.example.joren.partynightplanner.views.search.ContentSearch
 import com.example.joren.partynightplanner.views.search.ContentSearchResult
 import com.facebook.*
@@ -43,48 +47,12 @@ class MainActivity : AppCompatActivity() {
     var isLoggedIn = accessToken != null && !accessToken!!.isExpired
     private var callbackManager: CallbackManager = CallbackManager.Factory.create()
 
+    lateinit var viewModel: MainViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        supportFragmentManager.beginTransaction().replace(R.id.loggedInFragment, LoggedInFragment.newInstance()).commit()
-        supportFragmentManager.beginTransaction().replace(R.id.content, ContentMain.newInstance()).commit()
-
-        loadFbData()
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        val actionbar: ActionBar? = supportActionBar
-        actionbar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
-        }
-
-        nav_view.setNavigationItemSelectedListener {
-
-            it.isChecked = true
-            drawer_layout.closeDrawers()
-
-            when (it.itemId){
-                R.id.nav_home -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.content, ContentMain.newInstance()).commit()
-                    true
-                }
-                R.id.nav_nights -> {
-                    openPlannedNightsPanel()
-                    true
-                }
-                R.id.nav_search -> {
-                    openSearchPanel()
-                    true
-                }
-                R.id.nav_invitations -> {
-                    true
-                }
-                else -> false
-            }
-        }
+        initUi()
 
     }
 
@@ -222,7 +190,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun saveNight(night: Night) {
-        NightRepo.addNight(night)
+        viewModel.addNight(night)
         openPlannedNightsPanel()
     }
 
@@ -258,5 +226,51 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.content, ContentNewNight.newInstance(night))
                 .addToBackStack(null)
                 .commit()
+    }
+
+    private fun initUi(){
+        setContentView(R.layout.activity_main)
+
+        supportFragmentManager.beginTransaction().replace(R.id.loggedInFragment, LoggedInFragment.newInstance()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.content, ContentMain.newInstance()).commit()
+
+        loadFbData()
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        val actionbar: ActionBar? = supportActionBar
+        actionbar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
+        }
+
+        nav_view.setNavigationItemSelectedListener {
+
+            it.isChecked = true
+            drawer_layout.closeDrawers()
+
+            // move to viewmodel?
+            when (it.itemId){
+                R.id.nav_home -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.content, ContentMain.newInstance()).commit()
+                    true
+                }
+                R.id.nav_nights -> {
+                    openPlannedNightsPanel()
+                    true
+                }
+                R.id.nav_search -> {
+                    openSearchPanel()
+                    true
+                }
+                R.id.nav_invitations -> {
+                    true
+                }
+                else -> false
+            }
+        }
+
+        val factory = InjectorUtils.provideMainViewModelFactory()
+        viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
     }
 }

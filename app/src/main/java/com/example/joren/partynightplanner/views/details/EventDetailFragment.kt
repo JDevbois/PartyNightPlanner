@@ -12,7 +12,7 @@ import com.example.joren.partynightplanner.util.DownloadImageTask
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+//TODO: MVVM
 class EventDetailFragment : Fragment() {
     private lateinit var event: Event
 

@@ -34,24 +34,24 @@ class EventDao {
             it.getValue<Event>(Event::class.java)
         }
         events.value = eventList
-
-        // TODO: debugging purposes only, delete for release
-        Log.i("DB", eventList.map { e -> e.title }.joinToString(separator = ", "))
+        Log.d("DB", eventList.map { e -> e.title }.joinToString(separator = ", "))
     }
 
     // CRUD OPERATIONS
-    fun addEvent(event: Event){
-        eventList.add(event)
-        events.value = eventList
+    fun addEvent(e: Event){
+        val key = Database.eventCloudEndPoint.push().key
+        if (key != null){
+            Database.eventCloudEndPoint.child(key).setValue(e.also { e.id = key })
+        }
     }
 
     fun getEvents() = events as LiveData<List<Event>>
 
-    fun deleteEvent(event: Event) {
+    fun deleteEvent(e: Event) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun updateEvent(event: Event) {
+    fun updateEvent(e: Event) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

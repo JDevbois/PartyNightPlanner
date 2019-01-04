@@ -24,8 +24,6 @@ class EventRepo private constructor(private val eventDao: EventDao){
         eventDao.updateEvent(event)
     }
 
-    // TODO: move from down here onwards to respective viewmodels with livedata instead of normal List<Event>
-
     private fun getEventsByName(query: String): LiveData<List<Event>>{
         return Transformations.map(getEvents()){events -> events.filter { e -> e.title.contains(query) }}
     }

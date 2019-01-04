@@ -41,19 +41,20 @@ class NightDao {
     }
 
     // CRUD OPERATIONS
-    fun addNight(night: Night){
-        // TODO write to firebase
-        nightList.add(night)
-        nights.value = nightList
+    fun addNight(n: Night){
+        val key = Database.nightCloudEndPoint.push().key
+        if (key != null){
+            Database.nightCloudEndPoint.child(key).setValue(n.also { n.id = key })
+        }
     }
 
     fun getNights() = nights as LiveData<List<Night>>
 
-    fun deleteNight(night: Night) {
+    fun deleteNight(n: Night) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun updateNight(night: Night) {
+    fun updateNight(n: Night) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

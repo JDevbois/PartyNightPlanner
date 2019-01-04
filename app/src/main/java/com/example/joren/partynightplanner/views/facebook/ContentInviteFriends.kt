@@ -15,6 +15,7 @@ import com.example.joren.partynightplanner.persistence.users.UserRepo
 import im.getsocial.sdk.ui.GetSocialUi
 import kotlinx.android.synthetic.main.content_invite_friends.*
 
+//TODO: MVVM
 class ContentInviteFriends : Fragment() {
 
     lateinit var night: Night
@@ -28,7 +29,7 @@ class ContentInviteFriends : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //TODO graph request to fb api for invite_friends, if not empty -> hide fb regulations textview
+        //TODO graph request to fb api for user_friends, if not empty -> hide fb regulations textview
 
         arguments!!.let{
             if (it.containsKey(ARG_NIGHT)){

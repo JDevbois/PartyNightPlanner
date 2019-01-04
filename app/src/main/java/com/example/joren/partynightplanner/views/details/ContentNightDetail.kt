@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.night_detail.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+//TODO: MVVM
 class ContentNightDetail: Fragment() {
     private lateinit var night: Night
     private var layoutManager: RecyclerView.LayoutManager? = null

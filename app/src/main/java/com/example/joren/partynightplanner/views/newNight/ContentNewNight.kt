@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.content_new_night.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+//TODO: MVVM
 class ContentNewNight: Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null

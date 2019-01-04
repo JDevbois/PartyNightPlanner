@@ -2,6 +2,7 @@ package com.example.joren.partynightplanner.views.newNight
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -14,17 +15,18 @@ import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Night
+import com.example.joren.partynightplanner.util.InjectorUtils
+import com.example.joren.partynightplanner.views.details.ContentNightDetail
 import kotlinx.android.synthetic.main.content_new_night.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-//TODO: MVVM
 class ContentNewNight: Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<EventAdapter.ViewHolder>? = null
     // TODO: add own userid to friends
-    private var night: Night = Night()
+    private lateinit var viewModel: NightViewModel
 
     private val myCalendar = Calendar.getInstance()!!
     private val year : Int = myCalendar.get(Calendar.YEAR)
@@ -41,29 +43,41 @@ class ContentNewNight: Fragment() {
     override fun onStart() {
         super.onStart()
         initUi()
-        //TODO move to initui with viewmodel
-        layoutManager = LinearLayoutManager(this.context)
-        adapter = EventAdapter(night.events, this.activity)
-
-        newNightEventRecycleView.layoutManager = layoutManager
-        newNightEventRecycleView.adapter = adapter
     }
 
     override fun onStop() {
         super.onStop()
         layoutManager = null
         adapter = null
+
+        newNightEventRecycleView.layoutManager = null
+        newNightEventRecycleView.adapter = null
     }
 
     private fun initUi(){
+        val factory = InjectorUtils.provideNightViewModelFactory()
+        viewModel = ViewModelProviders.of(this, factory).get(NightViewModel::class.java)
 
-        editAddName.setText(night.name)
-        editAddDesc.setText(night.desc)
+        //TODO: observe from viewmodel
+        adapter = EventAdapter(viewModel.night!!.events, this.activity)
+        newNightEventRecycleView.adapter = adapter
+
+        layoutManager = LinearLayoutManager(this.context)
+        newNightEventRecycleView.layoutManager = layoutManager
+
+        arguments?.let{
+            if (it.containsKey(ContentNightDetail.ARG_NIGHT)){
+                viewModel.parseNight(it.getSerializable(ContentNightDetail.ARG_NIGHT) as Night)
+            }
+        }
+
+        editAddName.setText(viewModel.night!!.name)
+        editAddDesc.setText(viewModel.night!!.desc)
 
         fabSaveNight.setOnClickListener {
-            updateNight()
-            if(noFieldsAreNull(night))
-                (activity as MainActivity).saveNight(night)
+            updateNightView()
+            if(noFieldsAreNull(viewModel.night!!))
+                (activity as MainActivity).saveNight(viewModel.night!!)
             else
                 Toast.makeText(context, "You can't leave any of the fields empty. A night also needs at least one event", Toast.LENGTH_LONG).show()
         }
@@ -87,8 +101,8 @@ class ContentNewNight: Fragment() {
         }
 
         btnAddEvent.setOnClickListener{
-            updateNight()
-            (activity as MainActivity).openAddEventToNightPanel(night)
+            updateNightView()
+            (activity as MainActivity).openAddEventToNightPanel(viewModel.night!!)
         }
 
         updateLabel()
@@ -104,13 +118,14 @@ class ContentNewNight: Fragment() {
         txtDateAdd.text = sdf.format(myCalendar.time)
     }
 
-    private fun updateNight(){
-        night.name = editAddName.text.toString()
-        night.desc = editAddDesc.text.toString()
-        night.date = myCalendar.time
+    private fun updateNightView(){
+        viewModel.night!!.name = editAddName.text.toString()
+        viewModel.night!!.desc = editAddDesc.text.toString()
+        viewModel.night!!.date = myCalendar.time
     }
 
     companion object {
+        const val ARG_NIGHT = "item_id"
 
         fun newInstance(): ContentNewNight {
             return ContentNewNight()
@@ -118,7 +133,9 @@ class ContentNewNight: Fragment() {
 
         fun newInstance(night: Night): ContentNewNight {
             val fragment = ContentNewNight()
-            fragment.night = night
+            val args = Bundle()
+            args.putSerializable(ARG_NIGHT, night)
+            fragment.arguments = args
             return fragment
         }
     }

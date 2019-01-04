@@ -41,8 +41,8 @@ class ContentAddEventToNight : Fragment() {
     }
 
     private fun initUi() {
-        val factory = InjectorUtils.provideNewNightViewModelFactory()
-        val viewModel = ViewModelProviders.of(this, factory).get(NewNightViewModel::class.java)
+        val factory = InjectorUtils.provideNightViewModelFactory()
+        val viewModel = ViewModelProviders.of(this, factory).get(NightViewModel::class.java)
 
         arguments!!.let{
             if (it.containsKey(ARG_NIGHT)){

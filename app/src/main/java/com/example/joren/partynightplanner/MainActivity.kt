@@ -32,19 +32,13 @@ import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
-    var accessToken: AccessToken? = AccessToken.getCurrentAccessToken()
-    var isLoggedIn = accessToken != null && !accessToken!!.isExpired
     private var callbackManager: CallbackManager = CallbackManager.Factory.create()
-
     lateinit var viewModel: MainViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initUi()
-
-        // TODO: DEBUGGING PURPOSES ONLY
-        // Database.getInstance().loadDummyDataToDB()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -122,8 +116,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadFbData(){
         //LOAD fb data
-        if(isLoggedIn){
-            val request = GraphRequest.newMeRequest(accessToken) { `object`, response ->
+        if(Companion.isLoggedIn){
+            val request = GraphRequest.newMeRequest(Companion.accessToken) { `object`, response ->
                 try {
                     //here is the data that you want
                     Log.d("FBLOGIN_JSON_RES", `object`.toString())
@@ -197,6 +191,9 @@ class MainActivity : AppCompatActivity() {
 
         loadFbData()
 
+        val factory = InjectorUtils.provideMainViewModelFactory()
+        viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         val actionbar: ActionBar? = supportActionBar
@@ -230,8 +227,11 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-        val factory = InjectorUtils.provideMainViewModelFactory()
-        viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
+    }
+    
+    companion object {
+        // TODO: shield routes with isLoggedIn
+        var accessToken: AccessToken? = AccessToken.getCurrentAccessToken()
+        var isLoggedIn = accessToken != null && ! accessToken!!.isExpired
     }
 }

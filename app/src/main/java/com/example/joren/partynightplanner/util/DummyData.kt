@@ -6,6 +6,12 @@ import com.example.joren.partynightplanner.domain.User
 import java.util.*
 
 class DummyData {
+    /*
+    Test user details:
+    Name: Professor Professorson
+    Email: professor_deynwjz_professorson@tfbnw.net
+    Password: Professor123
+    */
     companion object {
         private const val YEAR_OFFSET: Int = 1900
         private val CURR_YEAR: Int = 2019 - YEAR_OFFSET

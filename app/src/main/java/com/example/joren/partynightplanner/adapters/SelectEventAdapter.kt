@@ -11,6 +11,7 @@ class SelectEventAdapter(dataSet: List<Event>, parentActivity: FragmentActivity?
     init {
         onClickListener = View.OnClickListener { e ->
             selectedItem = e.tag as Event
+            //TODO add markup to show element is selected
         }
     }
 }

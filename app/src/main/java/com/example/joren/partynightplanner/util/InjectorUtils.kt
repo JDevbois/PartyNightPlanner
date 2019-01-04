@@ -6,6 +6,7 @@ import com.example.joren.partynightplanner.persistence.events.MyEventRepo
 import com.example.joren.partynightplanner.persistence.nights.NightRepo
 import com.example.joren.partynightplanner.views.newNight.NewNightViewModelFactory
 import com.example.joren.partynightplanner.views.plannedNights.PlannedNightsViewModelFactory
+import com.example.joren.partynightplanner.views.search.EventSearchViewModelFactory
 
 object InjectorUtils {
 
@@ -23,5 +24,10 @@ object InjectorUtils {
     fun provideNewNightViewModelFactory(): NewNightViewModelFactory{
         val eventRepo = MyEventRepo.getInstance(Database.getInstance().eventDao)
         return NewNightViewModelFactory(eventRepo)
+    }
+
+    fun provideEventSearchViewModel(): EventSearchViewModelFactory{
+        val eventRepo = MyEventRepo.getInstance(Database.getInstance().eventDao)
+        return EventSearchViewModelFactory(eventRepo)
     }
 }

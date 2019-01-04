@@ -13,7 +13,5 @@ class NewNightViewModel(private val eventRepo: MyEventRepo): ViewModel() {
         night = p0
     }
 
-    fun getAvailableEvents(): LiveData<List<Event>>{
-        return eventRepo.getAddableEventsForNight(night!!)
-    }
+    fun getAvailableEvents() = eventRepo.getAddableEventsForNight(night!!)
 }

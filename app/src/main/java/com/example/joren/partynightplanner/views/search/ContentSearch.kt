@@ -9,13 +9,16 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.content_search.*
 import java.util.*
 import android.app.DatePickerDialog
+import android.arch.lifecycle.ViewModelProviders
 import java.text.SimpleDateFormat
 import android.text.method.KeyListener
 import android.view.KeyEvent
 import com.example.joren.partynightplanner.persistence.events.EventRepo
 import com.example.joren.partynightplanner.MainActivity
+import com.example.joren.partynightplanner.MainViewModel
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.persistence.events.MyEventRepo
+import com.example.joren.partynightplanner.util.InjectorUtils
 
 
 class ContentSearch : Fragment() {
@@ -33,6 +36,10 @@ class ContentSearch : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        initUi()
+    }
+
+    private fun initUi(){
 
         editTextSearch.tag = editTextSearch.keyListener
 
@@ -86,7 +93,7 @@ class ContentSearch : Fragment() {
         }
     }
 
-    fun search(){
+    private fun search(){
         query = editTextSearch.text.toString()
         if(this.activity is MainActivity) {
             (this.activity as MainActivity).openSearchResultPanel(selectedOption, query)

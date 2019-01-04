@@ -28,19 +28,19 @@ class MyEventRepo private constructor(private val eventDao: EventDao){
 
     // TODO: move from down here onwards to respective viewmodels with livedata instead of normal List<Event>
 
-    private fun getEventsByName(query: String): List<Event>{
-        return getEvents().value!!.filter { e -> e.title.contains(query) }
+    private fun getEventsByName(query: String): LiveData<List<Event>>{
+        return Transformations.map(getEvents()){events -> events.filter { e -> e.title.contains(query) }}
     }
 
-    private fun getEventsByOrganiser(query: String): List<Event>{
-        return getEvents().value!!.filter { e -> e.organiser.contains(query) }
+    private fun getEventsByOrganiser(query: String): LiveData<List<Event>>{
+        return Transformations.map(getEvents()){events -> events.filter { e -> e.organiser.contains(query) }}
     }
 
-    private fun getEventsByDate(query: String): List<Event>{
-        return getEvents().value!!.filter { e -> SimpleDateFormat("MM/dd/yy", Locale.US).format(e.startDate) == query }
+    private fun getEventsByDate(query: String): LiveData<List<Event>>{
+        return Transformations.map(getEvents()){events -> events.filter { e -> SimpleDateFormat("MM/dd/yy", Locale.US).format(e.startDate) == query }}
     }
 
-    fun getFilteredEvents(option: Int, query: String): List<Event> {
+    fun getFilteredEvents(option: Int, query: String): LiveData<List<Event>> {
         return when(option){
             BY_NAME -> {
                 getEventsByName(query)
@@ -51,7 +51,7 @@ class MyEventRepo private constructor(private val eventDao: EventDao){
             BY_DATE -> {
                 getEventsByDate(query)
             }
-            else -> getEvents().value!!.sortedBy { e -> e.startDate.time }
+            else -> Transformations.map(getEvents()){events -> events.sortedBy { e -> e.startDate.time }}
         }
     }
 

@@ -1,5 +1,7 @@
 package com.example.joren.partynightplanner.views.search
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +12,7 @@ import android.view.ViewGroup
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.persistence.events.EventRepo
 import com.example.joren.partynightplanner.R
+import com.example.joren.partynightplanner.util.InjectorUtils
 import kotlinx.android.synthetic.main.content_main.*
 
 class ContentSearchResult : Fragment(){
@@ -34,22 +37,7 @@ class ContentSearchResult : Fragment(){
 
     override fun onStart() {
         super.onStart()
-
-        layoutManager = LinearLayoutManager(this.context)
-        eventRecycleView.layoutManager = layoutManager
-
-        adapter = EventAdapter(EventRepo.getFilteredEvents(option, query), this.activity)
-        eventRecycleView.adapter = adapter
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        layoutManager = LinearLayoutManager(this.context)
-        eventRecycleView.layoutManager = layoutManager
-
-        adapter = EventAdapter(EventRepo.getFilteredEvents(option, query), this.activity)
-        eventRecycleView.adapter = adapter
+        initUi()
     }
 
     override fun onStop() {
@@ -57,10 +45,26 @@ class ContentSearchResult : Fragment(){
 
         layoutManager = null
         adapter = null
+
+        eventRecycleView.adapter = null
+        eventRecycleView.layoutManager = null
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.content_searchresult, container, false)
+    }
+
+    private fun initUi(){
+        val factory = InjectorUtils.provideEventSearchViewModel()
+        val viewModel = ViewModelProviders.of(this, factory).get(EventSearchViewModel::class.java)
+
+        layoutManager = LinearLayoutManager(this.context)
+        eventRecycleView.layoutManager = layoutManager
+
+        viewModel.getFilteredEvents(option, query).observe(this, Observer { events ->
+            adapter = EventAdapter(events!!, this.activity)
+            eventRecycleView.adapter = adapter
+        })
     }
 
     companion object {

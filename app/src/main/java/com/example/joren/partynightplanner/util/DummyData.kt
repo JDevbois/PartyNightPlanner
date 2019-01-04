@@ -13,6 +13,7 @@ class DummyData {
     Password: Professor123
     */
     companion object {
+        // TODO: this should not be a thing
         private const val YEAR_OFFSET: Int = 1900
         private val CURR_YEAR: Int = 2019 - YEAR_OFFSET
 

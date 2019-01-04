@@ -9,16 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.joren.partynightplanner.R
-import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.adapters.FriendAdapter
-import com.example.joren.partynightplanner.adapters.SelectEventAdapter
 import com.example.joren.partynightplanner.domain.Night
-import com.example.joren.partynightplanner.persistence.events.EventRepo
 import com.example.joren.partynightplanner.persistence.users.UserRepo
-import com.example.joren.partynightplanner.util.DummyData
-import com.example.joren.partynightplanner.views.newNight.ContentAddEventToNight
 import im.getsocial.sdk.ui.GetSocialUi
-import kotlinx.android.synthetic.main.content_add_event_to_night.*
 import kotlinx.android.synthetic.main.content_invite_friends.*
 
 class ContentInviteFriends : Fragment() {

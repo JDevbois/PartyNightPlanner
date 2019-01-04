@@ -14,7 +14,6 @@ import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Night
-import com.example.joren.partynightplanner.persistence.events.EventRepo
 import kotlinx.android.synthetic.main.content_new_night.*
 import java.text.SimpleDateFormat
 import java.util.*

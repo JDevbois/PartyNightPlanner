@@ -6,18 +6,13 @@ import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.domain.Night
-import com.example.joren.partynightplanner.persistence.Database
-import com.example.joren.partynightplanner.persistence.events.EventRepo
 import com.example.joren.partynightplanner.util.InjectorUtils
 import com.example.joren.partynightplanner.views.*
 import com.example.joren.partynightplanner.views.details.ContentNightDetail
@@ -31,7 +26,6 @@ import com.example.joren.partynightplanner.views.search.ContentSearch
 import com.example.joren.partynightplanner.views.search.ContentSearchResult
 import com.facebook.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.logged_in_fragment.*
 import org.json.JSONObject
 

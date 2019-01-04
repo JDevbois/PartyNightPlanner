@@ -9,16 +9,12 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.content_search.*
 import java.util.*
 import android.app.DatePickerDialog
-import android.arch.lifecycle.ViewModelProviders
 import java.text.SimpleDateFormat
 import android.text.method.KeyListener
 import android.view.KeyEvent
-import com.example.joren.partynightplanner.persistence.events.EventRepo
 import com.example.joren.partynightplanner.MainActivity
-import com.example.joren.partynightplanner.MainViewModel
 import com.example.joren.partynightplanner.R
-import com.example.joren.partynightplanner.persistence.events.MyEventRepo
-import com.example.joren.partynightplanner.util.InjectorUtils
+import com.example.joren.partynightplanner.persistence.events.EventRepo
 
 
 class ContentSearch : Fragment() {
@@ -44,7 +40,7 @@ class ContentSearch : Fragment() {
         editTextSearch.tag = editTextSearch.keyListener
 
         initOptions()
-        setSearchOption(MyEventRepo.BY_NAME)
+        setSearchOption(EventRepo.BY_NAME)
 
         btnSearch.setOnClickListener {
             search()
@@ -60,7 +56,7 @@ class ContentSearch : Fragment() {
 
         editTextSearch.setOnClickListener{
             var isDataSet = false
-            if (selectedOption == MyEventRepo.BY_DATE){
+            if (selectedOption == EventRepo.BY_DATE){
                 val datePickerDialog = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     myCalendar.set(Calendar.YEAR, year)
                     myCalendar.set(Calendar.MONTH, month)
@@ -77,7 +73,7 @@ class ContentSearch : Fragment() {
 
         editTextSearch.setOnFocusChangeListener { v, hasFocus ->
             var isDataSet = false
-            if (selectedOption == MyEventRepo.BY_DATE){
+            if (selectedOption == EventRepo.BY_DATE){
                 val datePickerDialog = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     myCalendar.set(Calendar.YEAR, year)
                     myCalendar.set(Calendar.MONTH, month)
@@ -102,13 +98,13 @@ class ContentSearch : Fragment() {
 
     private fun initOptions(){
         optionDatum.setOnClickListener {
-            setSearchOption(MyEventRepo.BY_DATE)
+            setSearchOption(EventRepo.BY_DATE)
         }
         optionEventname.setOnClickListener {
-            setSearchOption(MyEventRepo.BY_NAME)
+            setSearchOption(EventRepo.BY_NAME)
         }
         optionOrganiser.setOnClickListener {
-            setSearchOption(MyEventRepo.BY_ORGANISER)
+            setSearchOption(EventRepo.BY_ORGANISER)
         }
     }
 
@@ -120,7 +116,7 @@ class ContentSearch : Fragment() {
 
     private fun updateOptionViews(){
         when (selectedOption){
-            MyEventRepo.BY_DATE -> {
+            EventRepo.BY_DATE -> {
                 optionDatum.setTextColor(Color.RED)
                 optionEventname.setTextColor(Color.BLACK)
                 optionOrganiser.setTextColor(Color.BLACK)
@@ -131,7 +127,7 @@ class ContentSearch : Fragment() {
                 editTextSearch.isFocusable = true
 
             }
-            MyEventRepo.BY_NAME -> {
+            EventRepo.BY_NAME -> {
                 optionDatum.setTextColor(Color.BLACK)
                 optionEventname.setTextColor(Color.RED)
                 optionOrganiser.setTextColor(Color.BLACK)
@@ -139,7 +135,7 @@ class ContentSearch : Fragment() {
                 editTextSearch.keyListener = editTextSearch.tag as KeyListener
 
             }
-            MyEventRepo.BY_ORGANISER -> {
+            EventRepo.BY_ORGANISER -> {
                 optionDatum.setTextColor(Color.BLACK)
                 optionEventname.setTextColor(Color.BLACK)
                 optionOrganiser.setTextColor(Color.RED)

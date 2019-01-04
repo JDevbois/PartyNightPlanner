@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.MainViewModel
 import com.example.joren.partynightplanner.R
-import com.example.joren.partynightplanner.persistence.events.EventRepo
 import com.example.joren.partynightplanner.util.InjectorUtils
 import kotlinx.android.synthetic.main.content_main.*
 

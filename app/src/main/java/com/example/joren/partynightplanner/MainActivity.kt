@@ -16,6 +16,7 @@ import android.widget.Toast
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.domain.Night
+import com.example.joren.partynightplanner.persistence.Database
 import com.example.joren.partynightplanner.persistence.events.EventRepo
 import com.example.joren.partynightplanner.util.InjectorUtils
 import com.example.joren.partynightplanner.views.*
@@ -48,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initUi()
 
+        // DEBUGGING PURPOSES ONLY
+        // Database.getInstance().loadDummyDataToDB()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

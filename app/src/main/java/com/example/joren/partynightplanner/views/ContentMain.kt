@@ -1,5 +1,7 @@
 package com.example.joren.partynightplanner.views
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -10,8 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.joren.partynightplanner.adapters.EventAdapter
 import com.example.joren.partynightplanner.MainActivity
+import com.example.joren.partynightplanner.MainViewModel
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.persistence.events.EventRepo
+import com.example.joren.partynightplanner.util.InjectorUtils
 import kotlinx.android.synthetic.main.content_main.*
 
 class ContentMain : Fragment() {
@@ -23,31 +27,36 @@ class ContentMain : Fragment() {
         return inflater.inflate(R.layout.content_main, container, false)
     }
 
-    private fun initFab(){
-        fabSearch.setOnClickListener {
-            (activity as MainActivity).openSearchPanel()
-        }
-    }
-
     override fun onStart() {
         super.onStart()
-        Log.i("ContentMain", "starting")
-
-        layoutManager = LinearLayoutManager(this.context)
-        adapter = EventAdapter(EventRepo.getAllEvents(), this.activity)
-
-        initFab()
-
-        eventRecycleView.layoutManager = layoutManager
-        eventRecycleView.adapter = adapter
+        initUi()
     }
 
     override fun onStop() {
         super.onStop()
-        Log.i("ContentMain", "stopping")
 
         eventRecycleView.layoutManager = null
         eventRecycleView.adapter = null
+    }
+
+    private fun initUi(){
+        layoutManager = LinearLayoutManager(this.context)
+        eventRecycleView.layoutManager = layoutManager
+
+        val factory = InjectorUtils.provideMainViewModelFactory()
+        val viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
+        viewModel.getUpcomingEvents().observe(this, Observer { events ->
+            adapter = EventAdapter(events!!, this.activity)
+            eventRecycleView.adapter = adapter
+        })
+
+        initFab()
+    }
+
+    private fun initFab(){
+        fabSearch.setOnClickListener {
+            (activity as MainActivity).openSearchPanel()
+        }
     }
 
     companion object {

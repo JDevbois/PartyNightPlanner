@@ -54,7 +54,7 @@ class ContentSearchResult : Fragment(){
     }
 
     private fun initUi(){
-        val factory = InjectorUtils.provideEventSearchViewModel()
+        val factory = InjectorUtils.provideEventSearchViewModelFactory()
         val viewModel = ViewModelProviders.of(this, factory).get(EventSearchViewModel::class.java)
 
         layoutManager = LinearLayoutManager(this.context)

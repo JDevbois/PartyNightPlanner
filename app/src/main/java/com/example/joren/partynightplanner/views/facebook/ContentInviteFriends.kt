@@ -1,5 +1,6 @@
 package com.example.joren.partynightplanner.views.facebook
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -12,6 +13,8 @@ import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.adapters.FriendAdapter
 import com.example.joren.partynightplanner.domain.Night
 import com.example.joren.partynightplanner.persistence.users.UserRepo
+import com.example.joren.partynightplanner.util.InjectorUtils
+import com.example.joren.partynightplanner.views.newNight.NightViewModel
 import im.getsocial.sdk.ui.GetSocialUi
 import kotlinx.android.synthetic.main.content_invite_friends.*
 
@@ -40,6 +43,24 @@ class ContentInviteFriends : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        initUi()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        btnInviteNotOnApp.setOnClickListener(null)
+        btnInvite.setOnClickListener(null)
+
+        layoutManager = null
+        adapter = null
+
+        friendsRecycleView.layoutManager = null
+        friendsRecycleView.adapter = null
+    }
+
+    private fun initUi(){
+        val factory = InjectorUtils.provideInviteFriendsViewModelFactory()
+        val viewModel = ViewModelProviders.of(this, factory).get(InviteFriendsViewModel::class.java)
         layoutManager = LinearLayoutManager(this.context)
         //TODO: facebook user_friends whose IDS are NOT in night already
         adapter = FriendAdapter(UserRepo.users.map { u -> u.id }, this.activity)
@@ -53,22 +74,13 @@ class ContentInviteFriends : Fragment() {
         }
 
         btnInvite.setOnClickListener {
-
+            viewModel.sendNotificationsForNight(night, (adapter as FriendAdapter).selectedFriends)
+            
+            //TODO: move to when invite is accepted
             night.friends.addAll((adapter as FriendAdapter).selectedFriends.filterNot { f -> night.friends.contains(f) })
+            viewModel.updateNight(night)
             fragmentManager!!.popBackStackImmediate()
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        btnInviteNotOnApp.setOnClickListener(null)
-        btnInvite.setOnClickListener(null)
-
-        layoutManager = null
-        adapter = null
-
-        friendsRecycleView.layoutManager = null
-        friendsRecycleView.adapter = null
     }
 
     companion object {

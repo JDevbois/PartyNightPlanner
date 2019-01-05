@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.domain.Night
+import com.example.joren.partynightplanner.persistence.users.UserRepo
 import com.example.joren.partynightplanner.util.InjectorUtils
 import com.example.joren.partynightplanner.views.*
 import com.example.joren.partynightplanner.views.details.ContentNightDetail
@@ -21,6 +22,7 @@ import com.example.joren.partynightplanner.views.facebook.ContentInviteFriends
 import com.example.joren.partynightplanner.views.facebook.LoggedInFragment
 import com.example.joren.partynightplanner.views.newNight.ContentAddEventToNight
 import com.example.joren.partynightplanner.views.newNight.ContentNewNight
+import com.example.joren.partynightplanner.views.notifications.ContentNotifications
 import com.example.joren.partynightplanner.views.plannedNights.ContentPlannedNights
 import com.example.joren.partynightplanner.views.search.ContentSearch
 import com.example.joren.partynightplanner.views.search.ContentSearchResult
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initUi()
+        UserRepo.getUserFriends()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -116,8 +119,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadFbData(){
         //LOAD fb data
-        if(Companion.isLoggedIn){
-            val request = GraphRequest.newMeRequest(Companion.accessToken) { `object`, response ->
+        if(isLoggedIn){
+            val request = GraphRequest.newMeRequest(accessToken) { `object`, response ->
                 try {
                     //here is the data that you want
                     Log.d("FBLOGIN_JSON_RES", `object`.toString())
@@ -142,6 +145,7 @@ class MainActivity : AppCompatActivity() {
 
     fun handleSignInResultFacebook(data: JSONObject?) {
         imgProfile.profileId = data!!["id"].toString()
+        currUserId = data["id"].toString()
     }
 
     fun saveNight(night: Night) {
@@ -222,7 +226,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_invitations -> {
-                    //TODO
+                    openNotificationsPanel()
                     true
                 }
                 else -> false
@@ -230,9 +234,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun openNotificationsPanel() {
+        supportFragmentManager.beginTransaction().replace(R.id.content, ContentNotifications.newInstance()).commit()
+    }
+
     companion object {
         // TODO: shield routes with isLoggedIn
         var accessToken: AccessToken? = AccessToken.getCurrentAccessToken()
         var isLoggedIn = accessToken != null && ! accessToken!!.isExpired
+        var currUserId: String = ""
     }
 }

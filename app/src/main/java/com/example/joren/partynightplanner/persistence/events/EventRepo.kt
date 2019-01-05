@@ -52,12 +52,10 @@ class EventRepo private constructor(private val eventDao: EventDao){
     }
 
     fun getAddableEventsForNight(night: Night): LiveData<List<Event>> {
-        // return getEvents().value!!.filter { e -> e.endDate.after(time) }
-        //TODO filter out events that are already in night
         return Transformations.map(getEvents()){events ->
             events.filter { e ->
                 e.endDate.after(night.date)
-            }
+            }.filterNot { e -> night.events.contains(e) }
         }
     }
 

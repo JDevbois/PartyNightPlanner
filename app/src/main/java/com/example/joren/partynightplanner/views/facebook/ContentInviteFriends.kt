@@ -29,7 +29,7 @@ class ContentInviteFriends : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //TODO graph request to fb api for user_friends, if not empty -> hide fb regulations textview
+        //TODO graph request to fb api for user_friends
 
         arguments!!.let{
             if (it.containsKey(ARG_NIGHT)){
@@ -40,20 +40,23 @@ class ContentInviteFriends : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        layoutManager = LinearLayoutManager(this.context)
+        //TODO: facebook user_friends whose IDS are NOT in night already
+        adapter = FriendAdapter(UserRepo.users.map { u -> u.id }, this.activity)
+
+        friendsRecycleView.layoutManager = layoutManager
+        friendsRecycleView.adapter = adapter
+
         btnInviteNotOnApp.setOnClickListener {
             val wasShown = GetSocialUi.createInvitesView().show()
             Log.i("GetSocial", "GetSocial Smart Invites UI was shown: $wasShown")
         }
 
         btnInvite.setOnClickListener {
-            //TODO add selected userids to night
+
+            night.friends.addAll((adapter as FriendAdapter).selectedFriends.filterNot { f -> night.friends.contains(f) })
+            fragmentManager!!.popBackStackImmediate()
         }
-
-        layoutManager = LinearLayoutManager(this.context)
-        adapter = FriendAdapter(UserRepo.users.map { u -> u.id }, this.activity)
-
-        friendsRecycleView.layoutManager = layoutManager
-        friendsRecycleView.adapter = adapter
     }
 
     override fun onStop() {

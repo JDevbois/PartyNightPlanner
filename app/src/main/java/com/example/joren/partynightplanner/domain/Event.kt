@@ -1,6 +1,5 @@
 package com.example.joren.partynightplanner.domain
 
-import com.google.firebase.database.IgnoreExtraProperties
 import java.io.Serializable
 import java.util.*
 

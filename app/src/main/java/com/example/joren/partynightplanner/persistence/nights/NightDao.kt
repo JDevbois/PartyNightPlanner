@@ -36,7 +36,7 @@ class NightDao {
         }
         nights.value = nightList
 
-        // TODO: debugging purposes only, remove for release
+        // debugging purposes only, remove for release
         Log.i("DB", nightList.map { n -> n.name }.joinToString(separator = ", "))
     }
 
@@ -51,10 +51,16 @@ class NightDao {
     fun getNights() = nights as LiveData<List<Night>>
 
     fun deleteNight(n: Night) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val key = n.id
+        if (key.isNotEmpty()){
+            Database.nightCloudEndPoint.child(key).removeValue()
+        }
     }
 
     fun updateNight(n: Night) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val key = n.id
+        if (key.isNotEmpty()){
+            Database.nightCloudEndPoint.child(key).setValue(n)
+        }
     }
 }

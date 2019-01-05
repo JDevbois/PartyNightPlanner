@@ -48,11 +48,17 @@ class EventDao {
     fun getEvents() = events as LiveData<List<Event>>
 
     fun deleteEvent(e: Event) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val key = e.id
+        if (key.isNotEmpty()){
+            Database.eventCloudEndPoint.child(key).removeValue()
+        }
     }
 
     fun updateEvent(e: Event) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val key = e.id
+        if (key.isNotEmpty()){
+            Database.eventCloudEndPoint.child(key).setValue(e)
+        }
     }
 
 }

@@ -58,18 +58,18 @@ class ContentNewNight: Fragment() {
         val factory = InjectorUtils.provideNightViewModelFactory()
         viewModel = ViewModelProviders.of(this, factory).get(NightViewModel::class.java)
 
+        arguments?.let{
+            if (it.containsKey(ContentNightDetail.ARG_NIGHT)){
+                viewModel.parseNight(it.getSerializable(ContentNightDetail.ARG_NIGHT) as Night)
+            }
+        }
+
         //TODO: observe from viewmodel
         adapter = EventAdapter(viewModel.night!!.events, this.activity)
         newNightEventRecycleView.adapter = adapter
 
         layoutManager = LinearLayoutManager(this.context)
         newNightEventRecycleView.layoutManager = layoutManager
-
-        arguments?.let{
-            if (it.containsKey(ContentNightDetail.ARG_NIGHT)){
-                viewModel.parseNight(it.getSerializable(ContentNightDetail.ARG_NIGHT) as Night)
-            }
-        }
 
         editAddName.setText(viewModel.night!!.name)
         editAddDesc.setText(viewModel.night!!.desc)

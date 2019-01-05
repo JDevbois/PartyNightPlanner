@@ -25,7 +25,6 @@ class ContentNewNight: Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<EventAdapter.ViewHolder>? = null
-    // TODO: add own userid to friends
     private lateinit var viewModel: NightViewModel
 
     private val myCalendar = Calendar.getInstance()!!

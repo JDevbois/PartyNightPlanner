@@ -59,6 +59,12 @@ class EventRepo private constructor(private val eventDao: EventDao){
         }
     }
 
+    fun getUpcomingEvents(): LiveData<List<Event>> {
+        return Transformations.map(getEvents()){
+            it.filter { e -> e.endDate.after(Calendar.getInstance().time) }
+        }
+    }
+
     companion object {
         // singleton code
         @Volatile private var instance: EventRepo? = null

@@ -10,6 +10,5 @@ class MainViewModel(private val nightRepo: NightRepo, private val eventRepo: Eve
         nightRepo.addNight(night)
     }
 
-    // TODO only events after current date
-    fun getUpcomingEvents() = eventRepo.getEvents()
+    fun getUpcomingEvents() = eventRepo.getUpcomingEvents()
 }

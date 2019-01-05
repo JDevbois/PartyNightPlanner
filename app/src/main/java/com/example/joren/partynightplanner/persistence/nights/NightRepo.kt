@@ -1,5 +1,7 @@
 package com.example.joren.partynightplanner.persistence.nights
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Transformations
 import com.example.joren.partynightplanner.domain.Night
 
 class NightRepo private constructor(private val nightDao: NightDao) {
@@ -16,6 +18,12 @@ class NightRepo private constructor(private val nightDao: NightDao) {
 
     fun updateNight(night: Night){
         nightDao.updateNight(night)
+    }
+
+    fun getNightsByUser(id: String): LiveData<List<Night>> {
+        return Transformations.map(getNights()){
+            it.filter { night -> night.friends.contains(id) }
+        }
     }
 
     companion object {

@@ -4,6 +4,5 @@ import android.arch.lifecycle.ViewModel
 import com.example.joren.partynightplanner.persistence.nights.NightRepo
 
 class PlannedNightsViewModel(private val nightRepo: NightRepo): ViewModel() {
-    // TODO get by userid
-    fun getNightsForUser(id: String) = nightRepo.getNights()
+    fun getNightsForUser(id: String) = nightRepo.getNightsByUser(id)
 }

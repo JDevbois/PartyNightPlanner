@@ -42,8 +42,7 @@ class ContentPlannedNights: Fragment() {
         val factory = InjectorUtils.providePlannedNightsViewModelFactory()
         val viewModel = ViewModelProviders.of(this, factory).get(PlannedNightsViewModel::class.java)
 
-        //TODO actually pass userid via FB api
-        viewModel.getNightsForUser("").observe(this, Observer { nights ->
+        viewModel.getNightsForUser(MainActivity.currUserId).observe(this, Observer { nights ->
             adapter = NightAdapter(nights!!, activity)
             nightRecyclerView.adapter = adapter
         })

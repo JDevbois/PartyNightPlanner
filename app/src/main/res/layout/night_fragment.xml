@@ -17,11 +17,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:contentDescription="@string/night_image"
-            tools:srcCompat="@tools:sample/avatars"/>
 
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"

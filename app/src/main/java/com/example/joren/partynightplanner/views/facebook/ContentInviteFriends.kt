@@ -9,36 +9,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.adapters.FriendAdapter
 import com.example.joren.partynightplanner.domain.Night
-import com.example.joren.partynightplanner.persistence.users.UserRepo
+import com.example.joren.partynightplanner.domain.User
 import com.example.joren.partynightplanner.util.InjectorUtils
-import com.example.joren.partynightplanner.views.newNight.NightViewModel
+import com.facebook.GraphRequest
 import im.getsocial.sdk.ui.GetSocialUi
 import kotlinx.android.synthetic.main.content_invite_friends.*
+import org.json.JSONArray
+import org.json.JSONObject
 
-//TODO: MVVM
 class ContentInviteFriends : Fragment() {
-
-    lateinit var night: Night
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<FriendAdapter.ViewHolder>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.content_invite_friends, container, false)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //TODO graph request to fb api for user_friends
-
-        arguments!!.let{
-            if (it.containsKey(ARG_NIGHT)){
-                night = it.getSerializable(ARG_NIGHT) as Night
-            }
-        }
     }
 
     override fun onStart() {
@@ -61,12 +50,14 @@ class ContentInviteFriends : Fragment() {
     private fun initUi(){
         val factory = InjectorUtils.provideInviteFriendsViewModelFactory()
         val viewModel = ViewModelProviders.of(this, factory).get(InviteFriendsViewModel::class.java)
-        layoutManager = LinearLayoutManager(this.context)
-        //TODO: facebook user_friends whose IDS are NOT in night already
-        adapter = FriendAdapter(UserRepo.users.map { u -> u.id }, this.activity)
 
-        friendsRecycleView.layoutManager = layoutManager
-        friendsRecycleView.adapter = adapter
+        arguments!!.let{
+            if (it.containsKey(ARG_NIGHT)){
+                viewModel.night = it.getSerializable(ARG_NIGHT) as Night
+            }
+        }
+
+        getUserFriends()
 
         btnInviteNotOnApp.setOnClickListener {
             val wasShown = GetSocialUi.createInvitesView().show()
@@ -74,13 +65,61 @@ class ContentInviteFriends : Fragment() {
         }
 
         btnInvite.setOnClickListener {
-            viewModel.sendNotificationsForNight(night, (adapter as FriendAdapter).selectedFriends)
-            
-            //TODO: move to when invite is accepted
-            night.friends.addAll((adapter as FriendAdapter).selectedFriends.filterNot { f -> night.friends.contains(f) })
-            viewModel.updateNight(night)
+            viewModel.sendNotificationsForNight((adapter as FriendAdapter).selectedFriends)
+
+            //aTODO: move to when invite is accepted
+            viewModel.night.friends.addAll((adapter as FriendAdapter).selectedFriends.filterNot { f -> viewModel.night.friends.contains(f) })
+            viewModel.updateNight(viewModel.night)
             fragmentManager!!.popBackStackImmediate()
         }
+    }
+
+    fun getUserFriends(){
+        if(MainActivity.isLoggedIn){
+            val request = GraphRequest.newMeRequest(MainActivity.accessToken) { `object`, response ->
+                try {
+                    //here is the data that you want
+                    Log.d("FBLOGIN_JSON_RES", `object`.toString())
+
+                    if (`object`.has("id")) {
+                        handleFacebookFriendsResult(`object`)
+                    } else {
+                        Log.d("FBLOGIN_FAILED", `object`.toString())
+                    }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            val parameters = Bundle()
+            parameters.putString("fields", "friends")
+            request.parameters = parameters
+            request.executeAsync()
+        }
+    }
+
+    fun handleFacebookFriendsResult(data: JSONObject?){
+        val friendsObject = data!!.getJSONObject("friends").getString("data")
+        val friends: MutableList<User> = mutableListOf()
+
+        val array = JSONArray(friendsObject)
+        for (i in 0 until array.length()) {
+            val row = array.getJSONObject(i)
+            val id = row.getString("id")
+            val name = row.getString("name")
+            val user = User(id, name)
+            friends.add(user)
+        }
+
+        Log.i("FB", friendsObject.toString())
+        Log.d("FB", friends.toString())
+
+        layoutManager = LinearLayoutManager(this.context)
+        adapter = FriendAdapter(friends, this.activity)
+
+        friendsRecycleView.layoutManager = layoutManager
+        friendsRecycleView.adapter = adapter
     }
 
     companion object {

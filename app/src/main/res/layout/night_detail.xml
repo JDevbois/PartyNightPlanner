@@ -76,13 +76,14 @@
             android:orientation="horizontal">
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Friends attending: "/>
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:id="@+id/nightDetailFriends"
-                android:text="@string/loremipsum"/>
+                android:text="@string/loremipsum"
+                android:ellipsize="end"/>
         </android.support.v7.widget.LinearLayoutCompat>
         <Button
             android:layout_width="match_parent"

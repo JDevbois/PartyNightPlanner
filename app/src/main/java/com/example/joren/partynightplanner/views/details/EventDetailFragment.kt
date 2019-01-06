@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.domain.Event
-import kotlinx.android.synthetic.main.event_detail.view.*
 import com.example.joren.partynightplanner.util.DownloadImageTask
+import kotlinx.android.synthetic.main.event_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,18 +27,23 @@ class EventDetailFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.event_detail, container, false)
+        return inflater.inflate(R.layout.event_detail, container, false)
+    }
 
+    override fun onStart() {
+        super.onStart()
+        initUi()
+    }
+
+    private fun initUi(){
         event.let {
-            rootView.eventDetailTitle.text = event.title
-            rootView.eventDetailDesc.text = event.desc
-            rootView.eventDetailStartDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(event.startDate)
-            rootView.eventDetailEndDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(event.endDate)
+            eventDetailTitle.text = event.title
+            eventDetailDesc.text = event.desc
+            eventDetailStartDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(event.startDate)
+            eventDetailEndDateAndTime.text = SimpleDateFormat("dd MM yyyy hh:mm a", Locale.US).format(event.endDate)
 
-            DownloadImageTask(rootView.eventDetailImg).execute(event.imgSrc)
+            DownloadImageTask(eventDetailImg).execute(event.imgSrc)
         }
-
-        return rootView
     }
 
     companion object {

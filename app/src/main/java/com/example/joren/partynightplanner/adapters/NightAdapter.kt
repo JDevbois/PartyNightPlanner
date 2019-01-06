@@ -1,25 +1,33 @@
 package com.example.joren.partynightplanner.adapters
 
+import android.arch.lifecycle.MutableLiveData
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import com.example.joren.partynightplanner.MainActivity
 import com.example.joren.partynightplanner.R
 import com.example.joren.partynightplanner.domain.Night
-import im.getsocial.sdk.ui.GetSocialUi
 import kotlinx.android.synthetic.main.night_fragment.view.*
 import java.text.SimpleDateFormat
+import com.facebook.GraphResponse
+import com.facebook.GraphRequest
+import com.facebook.HttpMethod
+import com.facebook.AccessToken
 import java.util.*
+
 
 class NightAdapter(private val dataSet: List<Night>, private val parentActivity: FragmentActivity?) : RecyclerView.Adapter<NightAdapter.ViewHolder>() {
     private val onClickListener: View.OnClickListener
+    private val friendNamesList: MutableList<String> = mutableListOf()
+    private val friendNames = MutableLiveData<MutableList<String>>()
 
     init {
+        friendNames.value = friendNamesList
+
         onClickListener = View.OnClickListener { n ->
             val item = n.tag as Night
             if(parentActivity is MainActivity){
@@ -41,7 +49,13 @@ class NightAdapter(private val dataSet: List<Night>, private val parentActivity:
         holder.itemName.text = night.name
         holder.itemDesc.text = night.desc
         holder.itemDate.text = SimpleDateFormat("MM/dd/yy", Locale.US).format(night.date)
-        holder.itemFriends.text = night.friendsToString()
+        night.friends.forEach {
+            addFriendNameToView(it)
+        }
+        friendNames.observe(parentActivity!!, android.arch.lifecycle.Observer {
+            if (it != null)
+                holder.itemFriends.text = it.joinToString(separator = ", ")
+        })
 
         with(holder.itemView){
             tag = night
@@ -54,6 +68,25 @@ class NightAdapter(private val dataSet: List<Night>, private val parentActivity:
                 }
             }
         }
+    }
+
+    fun addFriendNameToView(s: String){
+        GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/$s/",
+                null,
+                HttpMethod.GET,
+                GraphRequest.Callback {
+                    handleResult(it)
+                }
+        ).executeAsync()
+    }
+
+    private fun handleResult(it: GraphResponse) {
+        Log.d("FB", it.jsonObject.toString())
+        val name = it.jsonObject.getString("name").substring(0, it.jsonObject.getString("name").indexOf(' '))
+        friendNamesList.add(name)
+        friendNames.value = friendNamesList
     }
 
     override fun getItemCount() = dataSet.size

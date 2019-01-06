@@ -13,7 +13,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.example.joren.partynightplanner.domain.Event
 import com.example.joren.partynightplanner.domain.Night
-import com.example.joren.partynightplanner.persistence.users.UserRepo
 import com.example.joren.partynightplanner.util.InjectorUtils
 import com.example.joren.partynightplanner.views.*
 import com.example.joren.partynightplanner.views.details.ContentNightDetail
@@ -41,7 +40,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initUi()
-        UserRepo.getUserFriends()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
